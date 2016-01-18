@@ -78,15 +78,15 @@ angular.module('app.services', ['ionic-timepicker','ionic-datepicker','ngCordova
 	 		return  $http({
 						method: 'GET',
 						url: Target +'/mybooking.php' ,
-						params : {"param" : id}
+						params : {"param" : id , "_methed" : "mybooking"}
 					});
 		 },
-		  eventsCurrentBook: function(id){
+		  eventsCurrentBook: function(id,memberID){
 	 		//return  $http.get(Target +'/booking.php', {"uid": 1} );
 	 		return  $http({
 						method: 'GET',
 						url: Target +'/mybooking.php' ,
-						params : {"param" : id  ,"_methed" : "currentBook"}
+						params : {"param" : id  ,"_methed" : "currentBook", "memberID": memberID }
 					});
 		 }				
 	};

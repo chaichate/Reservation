@@ -84,7 +84,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
       };
 
       var arr= $localstorage.getObject('acount');
-    
+           
 
      // $scope.MyBooking = DataMybook.events ;
       $scope.MyBooking =[];
@@ -336,7 +336,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
                                 title: 'แจ้งเตือน',
                                 template: data.errors
                               });
-
+                                  
                        }
                        else
                        {
@@ -365,9 +365,13 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 
   
            Loading.show();
-           DataBooking.eventsCurrentBook(arr.id).then(function (response) {
+           DataBooking.eventsCurrentBook(curentID ,arr.id).then(function (response) {
                Loading.hide();
-
+               var dataBookCurrent = response.data;
+               datePickerCallback(dataBookCurrent.date); 
+               timePickerCallback(dataBookCurrent.start);
+               timePickerObjectEndCallback(dataBookCurrent.end)
+              
              
            }, function (err) {
              //console.log(err);
