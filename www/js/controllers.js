@@ -245,10 +245,9 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
                   "member":  arr.id,
               };
            
-            var object = angular.extend({}, $scope.timePiker, object2,$scope.master);
+            var object = angular.extend({}, object2,$scope.master, $scope.timePiker );
             //console.log( object );
              Loading.show();
-
 
             $http({
                   method  : 'POST',
@@ -258,7 +257,6 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
                  })
                   .success(function(data) {
                      Loading.hide();
-
 
                     if (data.errors) {
 
@@ -345,7 +343,6 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
                             //     template: data.message
                             // });
                             alert("ลบข้อมูลเรียบร้อยแล้วค่ะ");
-
                             $state.go('tab.mybooking' ,{}, {reload: true});
                        }
 
@@ -371,6 +368,8 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
                datePickerCallback(dataBookCurrent.date); 
                timePickerCallback(dataBookCurrent.start);
                timePickerObjectEndCallback(dataBookCurrent.end)
+              // $scope.timePiker.title= dataBookCurrent.title ;
+              console.log($scope.timePiker.title);
               
              
            }, function (err) {
@@ -445,6 +444,8 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
             if (typeof (val) === 'undefined') {
               console.log('Time not selected');
             } else {
+                
+               // console.log(val*1000);
               var selectedTime = new Date(val * 1000);
                $scope.timePickerObject.inputEpochTime = val;
                $scope.master = angular.extend({}, $scope.master ,  {start :selectedTime } ); 
@@ -474,7 +475,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
                    $scope.inputDate = "กรุณาเลือกวันที่" ;
                    $scope.master = angular.extend({}, $scope.master ,  {date : "" } ); 
                 } else {
-                  console.log('Selected date is : ', val)
+                 // console.log('Selected date is : ', val)
                    $scope.inputDate =val ;
                    $scope.master = angular.extend({}, $scope.master ,  {date : val } ); 
                 }
@@ -504,7 +505,8 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 
        var arr= $localstorage.getObject('acount');
         var object2 = {
-            "member":  arr.id,
+            "id": curentID ,
+             "member":  arr.id,
             "_METHOD" : "PUT",
         };
 
@@ -512,7 +514,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
            
              Loading.show();
             var object = angular.extend({}, object2 , $scope.master,  $scope.timePiker);
-            //console.log(object);
+            console.log(object);
 
             $http({
                   method  : 'POST',
