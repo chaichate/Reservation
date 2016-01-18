@@ -1,0 +1,42 @@
+/* Empty. Add your own CSS if you like */
+.btn-addbooking{
+	font-size: 25px !important;
+	color: #fff;
+}
+.tab-nav.tabs {
+      background-color: #fbac37 !important	;
+}
+.tabs-striped.tabs-stable .tab-item.tab-item-active, .tabs-striped.tabs-stable .tab-item.active, .tabs-striped.tabs-stable .tab-item.activated {
+   
+    color: #fff;
+    border-color: #fff;
+}
+.tabs-icon-top > .tabs .tab-item, .tabs-icon-top.tabs .tab-item, .tabs-icon-bottom > .tabs .tab-item, .tabs-icon-bottom.tabs .tab-item {
+    font-size: 10px;
+    line-height: 14px;
+    font-weight: bold;
+}
+.tabs-striped.tabs-stable .tab-item {
+    color: rgba(68, 68, 68, 1);
+    opacity: 1;
+}
+.bar-positive{
+    border-color: #fbac37 !important	;
+    background-color: #fbaf3f !important;
+    background-image: -webkit-linear-gradient(bottom, #fbac37, #fbac37 50%, transparent 50%) !important;
+    background-image: -o-linear-gradient(bottom, #fbac37, #fbac37 50%, transparent 50%) !important;
+    background-image: linear-gradient(to top, #fbac37, #fbac37 50%, transparent 50%) !important;
+}
+.red{
+	color: red;
+	font-size: 12px;
+}
+.ion-edit{
+    text-decoration: none;
+    color: #444;
+}
+.button-stable{
+    border: 1px ;
+    border-style: solid;
+    border-color: #ccc !important;
+}

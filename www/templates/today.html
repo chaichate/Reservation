@@ -1,0 +1,36 @@
+<ion-view title="รายการวันนี้">
+    <ion-nav-buttons side="primary">
+        <button class="button ion-ios-plus button-clear button-positive btn-addbooking" ng-click="create()"></button>
+    </ion-nav-buttons>
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="doRefresh()">
+          </ion-refresher>
+
+        <div class="list card" ng-repeat="Booking in BookingToday">
+            <div class="item item-divider">{{Booking.start}} ถึง {{Booking.end}}</div>
+            <div class="item item-body">
+                <div>
+                   {{Booking.title}}
+                    <br>
+                    <small>โดย : {{Booking.acount}}</small>
+                </div>
+            </div>
+        </div>
+
+
+  <!--       <div class="list card">
+            <div class="item item-divider">13.00-15.00</div>
+            <div class="item item-body">
+                <div>
+                    อบรมพนักงาน taladrod
+                    <br>
+                    <small>โดย : ไชยเชษฐ์</small>
+                </div>
+            </div>
+        </div> -->
+    
+    </ion-content>
+</ion-view>

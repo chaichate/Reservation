@@ -1,0 +1,17 @@
+<ion-view title="ปฎิทิน">
+
+	<ion-nav-buttons side="primary">
+        <button class="button ion-ios-plus button-clear button-positive btn-addbooking" ng-click="create()"></button>
+    </ion-nav-buttons>
+
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+    
+		 <ion-refresher
+	            pulling-text="Pull to refresh..."
+	            on-refresh="doRefresh()">
+	      </ion-refresher>	
+
+		<div ui-calendar="uiConfig.calendar" ng-model="eventSources">
+		<!-- <div ui-calendar="calendarOptions" ng-model="eventSources" calendar="myCalendar"> -->
+    </ion-content>
+</ion-view>

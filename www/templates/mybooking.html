@@ -1,0 +1,24 @@
+<ion-view title="การจองของฉัน">
+  
+    <ion-nav-buttons side="primary">
+        <button class="button ion-ios-plus button-clear button-positive btn-addbooking" ng-click="create()"></button>
+    </ion-nav-buttons>
+
+    
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+          <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="doRefresh()">
+          </ion-refresher>
+          
+        <ion-list ng-repeat="book in MyBooking">
+
+            <ion-item class="item-divider" >{{book.date}}</ion-item>
+            <ion-item class="item item-icon-right"  ng-repeat="item in book.item">
+                    {{item.start}} - {{item.end}} {{item.title}} 
+                 <a href="#/edit/{{item.id}}" class="icon ion-navicon  ion-edit"></a>
+            </ion-item>
+         
+        </ion-list>
+    </ion-content>
+</ion-view>

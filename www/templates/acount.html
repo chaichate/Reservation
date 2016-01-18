@@ -1,0 +1,22 @@
+<ion-view title="บัญชีของฉัน">
+        <h1 class="title">Login</h1>
+        
+
+        <ion-nav-buttons >
+             <button class="button ion-arrow-left-c button-clear button-positive" nav-direction="back"  ng-click="goBack()">
+             Back
+             </button>
+        </ion-nav-buttons>
+
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <ion-list>
+            <ion-item  class="item-thumbnail-left">
+                <img src="{{MyAcount.image}}">
+                <h2>{{MyAcount.name}}</h2>
+                <p>{{MyAcount.email}}</p>
+            </ion-item>
+            <ion-item>ชื่อ : {{MyAcount.name}}</ion-item>
+            <ion-item>Email: {{MyAcount.email}}</ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
