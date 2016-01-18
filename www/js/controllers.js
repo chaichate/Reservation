@@ -369,7 +369,8 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
                timePickerCallback(dataBookCurrent.start);
                timePickerObjectEndCallback(dataBookCurrent.end)
               // $scope.timePiker.title= dataBookCurrent.title ;
-              console.log($scope.timePiker.title);
+              //แก้ไขตรงนี้
+              console.log($scope.timePikertitle);
               
              
            }, function (err) {
