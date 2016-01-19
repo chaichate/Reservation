@@ -20,7 +20,7 @@
     color: rgba(68, 68, 68, 1);
     opacity: 1;
 }
-.bar-positive{
+.bar-orenge{
     border-color: #fbac37 !important	;
     background-color: #fbaf3f !important;
     background-image: -webkit-linear-gradient(bottom, #fbac37, #fbac37 50%, transparent 50%) !important;
@@ -39,4 +39,51 @@
     border: 1px ;
     border-style: solid;
     border-color: #ccc !important;
+}
+
+
+
+.text-center{
+    text-align: right;
+    margin: 0 auto; 
+    display: block;
+    padding: 5px;
+}
+
+/*//login*/
+.label-forget a{
+    background-color: #eee;
+    display: block;
+    padding: 5px;
+}
+.right{
+    float: right;
+}
+.left{
+    float: left;
+}
+
+
+.login{
+    background: #FB9706  url("../img/splash.png");
+     background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center 160px; 
+    -webkit-background-size:auto 100% ;
+    background-size:auto 100% ;
+}
+.login input{
+    /*background-color: rgba(251,151,6,1);*/
+    padding: 0;
+    margin: 0;
+    color: #000;
+    /*filter: alpha(opacity=50);*/
+}
+
+
+
+.login .bar-header{
+    border:0; 
+    background:transparent ;
+    
 }

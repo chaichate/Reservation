@@ -49,6 +49,25 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
      }
 })
 
+
+  
+.controller('forgetCtrl', function($scope, LoginService, $ionicPopup, $state, $localstorage , Loading) {
+      $scope.data = {};
+      $scope.forget = function() {
+        
+
+
+      }
+})
+
+.controller('regisCtrl', function($scope, LoginService, $ionicPopup, $state, $localstorage , Loading) {
+      $scope.data = {};
+      $scope.regis = function() {
+
+
+      }
+})
+
    
 .controller('TodayCtrl' , function($scope,DataBooking,Loading,$state) {
 
