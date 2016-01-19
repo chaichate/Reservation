@@ -368,9 +368,12 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
                datePickerCallback(dataBookCurrent.date); 
                timePickerCallback(dataBookCurrent.start);
                timePickerObjectEndCallback(dataBookCurrent.end)
-              // $scope.timePiker.title= dataBookCurrent.title ;
+               //$scope.timePiker.title= dataBookCurrent.title ;
               //แก้ไขตรงนี้
-              console.log($scope.timePikertitle);
+              $scope.timePiker = {
+                    title: dataBookCurrent.title
+               }
+             // console.log($scope.timePikertitle);
               
              
            }, function (err) {
@@ -515,7 +518,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
            
              Loading.show();
             var object = angular.extend({}, object2 , $scope.master,  $scope.timePiker);
-            console.log(object);
+            //console.log(object);
 
             $http({
                   method  : 'POST',
