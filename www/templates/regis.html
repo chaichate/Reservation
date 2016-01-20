@@ -1,0 +1,42 @@
+
+<ion-view class="login" title="สร้างบัญชี">
+
+    <ion-nav-bar class="bar-header bar-light">
+    
+    </ion-nav-bar>
+
+    <ion-content overflow-scroll="true" padding="true" class="has-header ">
+        <form  name="form" class="list" ng-submit="regis(data)" >
+                <ion-list>
+                    <label class="item item-input">
+                        <!-- <span class="input-label">Username</span> -->
+                        <input type="text"  placeholder="Username" ng-model="data.member_user">
+                    </label>
+                    <label class="item item-input">
+                        <!-- <span class="input-label">Username</span> -->
+                        <input type="email" required  placeholder="Email"  ng-model="data.member_email">
+                        
+                    </label>
+                  
+                    <label class="item item-input">
+                       <!--  <span class="input-label">Password</span> -->
+                        <input type="password" placeholder="Password" ng-model="data.member_password">
+                    </label>
+
+                    <label class="item item-input">
+                       <!--  <span class="input-label">Password</span> -->
+                        <input type="password" placeholder="Repassword" ng-model="repassword">
+                    </label>
+               
+
+                </ion-list>
+                <div class="spacer" style="height: 40px;"></div>
+                <button class="button button-block button-positive" type="submit">ลงทะเบียน</button> 
+           </form>
+           <label class="text-center ">
+                <a class="right button" ng-click="toLogin()" >เข้าสู่ระบบ</a> 
+            </label>
+            <!-- <a href="#" onclick="window.open('/signup', '_system', 'location=yes'); return false;" class="button button-positive button-clear button-block ">Or create an account</a> -->
+       
+    </ion-content>
+</ion-view>

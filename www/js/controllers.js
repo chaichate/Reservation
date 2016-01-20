@@ -1,17 +1,21 @@
 angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datepicker','ngCordova'])
   
 .controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, $localstorage , Loading) {
-      $scope.data = {};
+  $scope.data = {};
+
+      $scope.toRegis = function() {
+         $state.go("regis");
+      }
+
+       $scope.toForget = function() {
+           $state.go("forget");
+       }
+
+     
+
+    
       $scope.login = function() {
-        // LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
-        //     $state.go('tab.calendar');
-        // }).error(function(data) {
-        //     var alertPopup = $ionicPopup.alert({
-        //         title: 'ไม่สามารถเข้าสู่ระบบได้',
-        //         template: 'กรุณาตรวจสอบชื่อผู้ใช้และรหัสผ่านของ'
-        //     });
-        // });
-        
+      
         Loading.show();
         LoginService.getUser($scope.data.username, $scope.data.password)
         .success(function(data) {
@@ -49,23 +53,86 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
      }
 })
 
-
   
-.controller('forgetCtrl', function($scope, LoginService, $ionicPopup, $state, $localstorage , Loading) {
+.controller('forgetCtrl', function($scope, LoginService, Loading ,$cordovaToast , $state) {
+
+      $scope.toTarget = function(target) {
+           $state.go(target);
+       }
+
+
       $scope.data = {};
       $scope.forget = function() {
-        
 
+        Loading.show();
+        LoginService.forget($scope.data.email)
+        .success(function(data) {
+          Loading.hide();
+           if (parseInt(data.status) == 1) {
+               var json =data.result ;
+                 $cordovaToast.showShortBottom("ส่งคำร้องขอรัสผ่านใหม่รีบร้อยแล้ว กรุณาตรวสอบอีเมล์ของท่าน", 400); 
+            }
+            else
+            {
+                var json =data.result ;
+                 $cordovaToast.showShortBottom("ส่งคำร้องขอรัสผ่านใหม่รีบร้อยแล้ว กรุณาตรวสอบอีเมล์ของท่าน", 400); 
+            }
+
+          }).error(function(data) {
+              Loading.hide();
+              $cordovaToast.showShortBottom("เกิดข้อผิดพลาดบางประการกรุณาลองอีกครั้ง", 400); 
+          });
 
       }
 })
 
-.controller('regisCtrl', function($scope, LoginService, $ionicPopup, $state, $localstorage , Loading) {
-      $scope.data = {};
-      $scope.regis = function() {
+.controller('regisCtrl', function($scope, Loading,$state,$cordovaToast,LoginService) {
+      $scope.toLogin  =function(){
+        //console.log("eee");
+        $state.go("login"); 
+      }
 
+      $scope.data = {};
+      $scope.regis = function($object) {
+          
+     // console.log(object);
+        $scope.submitted = true;
+
+        Loading.show();
+        LoginService.regis($object)
+        .success(function(data) {
+          Loading.hide();
+           if (parseInt(data.status) == 1) {
+              var json =data.result ;
+              $cordovaToast.showShortBottom("ลงทะเบียนเรียบร้อยแล้ว กรุณาเข้าสู่ระบบด้วยค่ะ", 400)
+              .then(function(success) {
+                $state.go("login"); 
+              }, function (error) {
+                // error
+              });
+            }
+            else
+            {
+                var json =data.result ;
+                 $cordovaToast.showShortBottom("ส่งคำร้องขอรัสผ่านใหม่รีบร้อยแล้ว กรุณาตรวสอบอีเมล์ของท่าน", 400); 
+            }
+
+          }).error(function(data) {
+              Loading.hide();
+              $cordovaToast.showShortBottom("เกิดข้อผิดพลาดบางประการกรุณาลองอีกครั้ง", 400); 
+          });
 
       }
+
+
+       $scope.hasError = function(field, validation){
+        if(validation){
+          return ($scope.form[field].$dirty && $scope.form[field].$error[validation]) || ($scope.submitted && $scope.form[field].$error[validation]);
+        }
+        return ($scope.form[field].$dirty && $scope.form[field].$invalid) || ($scope.submitted && $scope.form[field].$invalid);
+      };
+
+      
 })
 
    

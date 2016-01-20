@@ -68,7 +68,7 @@
     background: #FB9706  url("../img/splash.png");
      background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: center 160px; 
+    background-position: bottom center; 
     -webkit-background-size:auto 100% ;
     background-size:auto 100% ;
 }

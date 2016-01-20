@@ -24,11 +24,20 @@
             </ion-list>
             <div class="spacer" style="height: 40px;"></div>
             <button class="button button-block button-positive" ng-click="login()">เข้าสู่ระบบ</button> 
+
+          
            <label class="text-center label-forget">
-                <a class="left">ลืมรหัสผ่าน</a>
-                <a class="right">ลงทะเบียน</a>
-            </label>
+                <button class="left button" ng-click="toForget()">ลืมรหัสผ่าน</button> 
+           </label>
+
+           <label class="text-center label-forget">
+                <button class="right button" ng-click="toRegis()">ลงทะเบียน</button> 
+           </label>
+
+
+
+         </form>
             <!-- <a href="#" onclick="window.open('/signup', '_system', 'location=yes'); return false;" class="button button-positive button-clear button-block ">Or create an account</a> -->
-        </form>
+       
     </ion-content>
 </ion-view>

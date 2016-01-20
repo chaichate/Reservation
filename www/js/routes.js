@@ -33,25 +33,18 @@ angular.module('app.routes', [])
     })
 
     .state('forget', {
-      url: '/login',
+      url: '/forget',
       templateUrl: 'templates/forget.html',
       controller: 'forgetCtrl'
     })
 
 
      .state('regis', {
-      url: '/login',
+      url: '/regis',
       templateUrl: 'templates/regis.html',
       controller: 'regisCtrl'
     })
-
-    .state('forget', {
-      url: '/login',
-      templateUrl: 'templates/login.html',
-      controller: 'LoginCtrl'
-    })
-      
-      
+    
         
     .state('tab.today', {
       url: '/today',

@@ -53,13 +53,29 @@ angular.module('app.services', ['ionic-timepicker','ionic-datepicker','ngCordova
 .service('LoginService', function($http){
 	return {
 		getUser: function($user, $pass){
-		
 		 	return  $http({
 						method: 'GET',
 						url: Target +'/index.php' ,
-						params : {"uid" : $user , "pass": $pass}
+						params : {"uid" : $user , "pass": $pass ,"_methed" : "GET"}
 					});
-		}	
+		},
+		forget: function($email){
+		 	return  $http({
+						method: 'GET',
+						url: Target +'/index.php' ,
+						params : {"email": $email ,"_methed" : "FORGET"}
+					});
+		},
+		regis: function(object){
+		 	return  $http({
+						method: 'POST',
+						url: Target +'/index.php' ,
+						params : {"_methed" : "REGISTER"} ,
+						data    :object, //forms user object
+                  			headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+					});
+		},
+
 
 	};
 })

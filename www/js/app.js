@@ -66,10 +66,10 @@ angular.module('app', ['ionic', 'app.controllers','miniapp', 'app.routes', 'app.
           var acount =$localstorage.getObject('acount');
            var keys = Object.keys(acount);
            var len = keys.length;
-           if(len<=0)
-           { 
-              $state.go('login');
-           }
+           // if(len<=0)
+           // { 
+           //    $state.go('login');
+           // }
       });
 
 
