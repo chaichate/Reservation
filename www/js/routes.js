@@ -18,19 +18,24 @@ angular.module('app.routes', [])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-    .state('tab', {
-      url: '/tab',
-      abstract:true,
-      templateUrl: 'templates/tabsController.html'
-    })
+    // .state('tab', {
+    //   url: '/tab',
+    //   abstract:true,
+    //   templateUrl: 'templates/tabsController.html'
+    // })
       
-    
+   .state('app', {
+    url: '/app',
+    abstract: true,
+    templateUrl: 'templates/menu.html',
+    controller: 'LoginCtrl'
+  })
               
-    .state('login', {
-      url: '/login',
-      templateUrl: 'templates/login.html',
-      controller: 'LoginCtrl'
-    })
+    // .state('login', {
+    //   url: '/login',
+    //   templateUrl: 'templates/login.html',
+    //   //controller: 'LoginCtrl'
+    // })
 
     .state('forget', {
       url: '/forget',
@@ -46,22 +51,22 @@ angular.module('app.routes', [])
     })
     
         
-    .state('tab.today', {
+    .state('app.today', {
       url: '/today',
       views: {
-        'tab-today': {
+        'menuContent': {
           templateUrl: 'templates/today.html',
           controller: 'TodayCtrl'
         }
       }
     })
 
-    .state('tab.calendar', {
+    .state('app.calendar', {
       url: '/calendar',
       views: {
-        'tab-calendar': {
+        'menuContent': {
           templateUrl: 'templates/calendar.html',
-          controller: 'calendarCtrl'
+          //controller: 'calendarCtrl'
         }
       }
     })
@@ -70,10 +75,10 @@ angular.module('app.routes', [])
     
       
         
-    .state('tab.setting', {
+    .state('app.setting', {
       url: '/setting',
       views: {
-        'tab-setting': {
+       'menuContent': {
           templateUrl: 'templates/setting.html',
          controller: 'settingCtrl'
         }
@@ -83,10 +88,10 @@ angular.module('app.routes', [])
          
       
         
-    .state('tab.mybooking', {
+    .state('app.mybooking', {
       url: '/mybooking',
       views: {
-        'tab-mybooking': {
+         'menuContent': {
           templateUrl: 'templates/mybooking.html',
           controller: 'MybookCtrl'
         }
@@ -101,12 +106,16 @@ angular.module('app.routes', [])
       controller: 'formCtrl'
     })
       
-      
-        
-    .state('acount', {
+
+    
+    .state('app.acount', {
       url: '/acount',
-      templateUrl: 'templates/acount.html',
-      controller: 'acountCtrl'
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/acount.html',
+          controller: 'acountCtrl'
+        }
+      }
     })
         
       
@@ -136,13 +145,22 @@ angular.module('app.routes', [])
       //controller: 'noconnectCtrl'
     })
         
-        
-    
-      
-    ;
+     .state('app.playlists', {
+      url: '/playlists',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/playlists.html',
+          controller: 'PlaylistsCtrl'
+        }
+      }
+    })
+
+  
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/app/playlists');
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/calendar');
+ // $urlRouterProvider.otherwise('/tab/calendar');
 
 });
 
