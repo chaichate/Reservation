@@ -1,6 +1,6 @@
 angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datepicker','ngCordova'])
   
-.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, $localstorage , Loading) {
+.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, $localstorage , Loading,$ionicHistory) {
   $scope.data = {};
 
       $scope.toRegis = function() {
@@ -19,6 +19,12 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
         Loading.show();
         LoginService.getUser($scope.data.username, $scope.data.password)
         .success(function(data) {
+
+            $ionicHistory.nextViewOptions({
+              disableBack: true
+             });
+
+
           Loading.hide();
            if (parseInt(data.status) == 1) {
              var json =data.result ;
@@ -56,9 +62,9 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
   
 .controller('forgetCtrl', function($scope, LoginService, Loading ,$cordovaToast , $state) {
 
-      $scope.toTarget = function(target) {
-           $state.go(target);
-       }
+       $scope.goBack = function() {
+         $ionicHistory.goBack();
+        };
 
 
       $scope.data = {};
@@ -75,7 +81,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
             else
             {
                 var json =data.result ;
-                 $cordovaToast.showShortBottom("ส่งคำร้องขอรัสผ่านใหม่รีบร้อยแล้ว กรุณาตรวสอบอีเมล์ของท่าน", 400); 
+                 $cordovaToast.showShortBottom(" กรุณาตรวสอบอีเมล์ของท่าน", 400); 
             }
 
           }).error(function(data) {
@@ -86,11 +92,11 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
       }
 })
 
-.controller('regisCtrl', function($scope, Loading,$state,$cordovaToast,LoginService) {
-      $scope.toLogin  =function(){
-        //console.log("eee");
-        $state.go("login"); 
-      }
+.controller('regisCtrl', function($scope, Loading,$state,$cordovaToast,LoginService,$ionicHistory) {
+
+       $scope.goBack = function() {
+         $ionicHistory.goBack();
+        };
 
       $scope.data = {};
       $scope.regis = function($object) {
@@ -136,10 +142,20 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 })
 
    
-.controller('TodayCtrl' , function($scope,DataBooking,Loading,$state) {
+.controller('TodayCtrl' , function($scope,DataBooking,Loading,$state,$localstorage) {
+
+      var acount =$localstorage.getObject('acount');
+       var keys = Object.keys(acount);
+       var len = keys.length;
+       if(len<=0)
+       { 
+          $state.go('login');
+
+          return ;
+       }
 
       $scope.create = function() {
-        $state.go("form"); 
+          $state.go("room"); 
       };
 
        $scope.BookingToday =[];
@@ -165,8 +181,21 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 
 })
 .controller('MybookCtrl', function($scope,DataBooking,Loading,$localstorage,$state) {
+
+      var acount =$localstorage.getObject('acount');
+       var keys = Object.keys(acount);
+       var len = keys.length;
+       if(len<=0)
+       { 
+          $state.go('login');
+
+          return ;
+       }
+
+
+
        $scope.create = function() {
-        $state.go("form"); 
+          $state.go("room"); 
       };
 
       var arr= $localstorage.getObject('acount');
@@ -197,6 +226,16 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 
 })   
 .controller('settingCtrl', function($scope,$state,$localstorage) {
+      var acount =$localstorage.getObject('acount');
+       var keys = Object.keys(acount);
+       var len = keys.length;
+       if(len<=0)
+       { 
+          $state.go('login');
+
+          return ;
+       }
+
      $scope.logOut = function() {
           $localstorage.removeItem('acount');
           $state.go('login');
@@ -206,22 +245,25 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
    
 
       
-.controller('formCtrl', function($scope, $stateParams,$ionicHistory, $http , $localstorage , $ionicPopup ,  $state ,Loading ,$cordovaToast) {
+.controller('formCtrl', function($scope, $stateParams,$ionicHistory, $http , $localstorage , $ionicPopup ,  $state ,Loading ,$cordovaToast , $stateParams) {
     //console.log($stateParams.movieid);
      $scope.goBack = function() {
          $ionicHistory.goBack();
       };
 
-        $scope.inputDate = "กรุณาคลิกเพื่อเลือกวันที่";
-        $scope.master = {
-            //"date" :  new Date , 
-            //"start" : ((new Date()).getHours() * 60 * 60) ,
-            //"end" : (((new Date()).getHours() +1) * 60 * 60 ),
-        };
+      $scope.inputDate = "กรุณาคลิกเพื่อเลือกวันที่";
+      $scope.master = {
+          //"date" :  new Date , 
+          //"start" : ((new Date()).getHours() * 60 * 60) ,
+          //"end" : (((new Date()).getHours() +1) * 60 * 60 ),
+      };
 
-   
+      var curentID = $stateParams.id ;
+       $scope.nameTitle = $stateParams.name ;
 
-        $scope.timePickerObject = {
+      //console.log($scope.nameTitle);
+
+      $scope.timePickerObject = {
          inputEpochTime: ((new Date()).getHours() * 60 * 60),  //Optional
           step: 10,  //Optional
           format: 24,  //Optional
@@ -329,6 +371,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
             // var arr= $localstorage.getObject('acount');
               var object2 = {
                   "member":  arr.id,
+                  "room": curentID
               };
            
             var object = angular.extend({}, object2,$scope.master, $scope.timePiker );
@@ -663,19 +706,110 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
     //console.log($stateParams.id);
     var currentID = $stateParams.id ; 
      DataCalendar.eventCalendar($stateParams.id).then(function(data){
-        
         $scope.Bookingdesc =data;
-
-        // for (var i = 0; i < data.length; i++) {
-        //  if(currentID==data[i].id )
-        //  {
-        //   console.log( data[i]  );
-        //   break;
-        //  }
-          
-        //};
      });
 
+})
+
+
+.controller('roomCtrl', function($scope,$stateParams,DataCalendar,$state, $ionicHistory , Loading , $http) {
+
+     $scope.create = function() {
+        $state.go("newroom"); 
+      };
+
+      $scope.goBack = function() {
+         $ionicHistory.goBack();
+      };
+
+
+         $scope.doRefresh = function() {
+         Loading.show();
+        $http({
+          method  : 'POST',
+          url     : Target + "/room.php",
+          params : {"_METHOD" : "GET"} ,
+         })
+          .success(function(data) {
+              Loading.hide();
+              $scope.roomList =data;
+          })
+         .finally(function() {
+           // Stop the ion-refresher from spinning
+           $scope.$broadcast('scroll.refreshComplete');
+         });
+      };
+
+       //var currentID = $stateParams.id ; 
+        Loading.show();
+      $http({
+        method  : 'POST',
+        url     : Target + "/room.php",
+        params : {"_METHOD" : "GET"} ,
+       })
+        .success(function(data) {
+            Loading.hide();
+            $scope.roomList =data;
+        });
+
+
+
+
+})
+
+.controller('newroomCtrl', function($scope,$ionicHistory , $localstorage ,Loading ,$http , $cordovaToast) {
+
+  
+      $scope.goBack = function() {
+         $ionicHistory.goBack();
+      };
+
+
+      var arr= $localstorage.getObject('acount');
+      var object2 = {
+         "member":  arr.id,
+        "_METHOD" : "POST",
+      };
+
+      $scope.sendPost = function($data) {
+
+            Loading.show();
+            var object = angular.extend({}, object2 ,  $data);
+
+            $http({
+              method  : 'POST',
+              url     : Target + "/room.php",
+              params : {"_METHOD" : "POST"} ,
+              data    :object, //forms user object
+              headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+             })
+              .success(function(data) {
+                  Loading.hide();
+                  $cordovaToast.showShortBottom("เพิ่มลงข้อมูลเรียบร้อยแล้ว", 400); 
+                  $ionicHistory.goBack();
+                if (data.errors) {
+
+                  $scope.errorDate = data.errors.date;
+                 
+                  
+                } else {
+                  
+                  $scope.errorDate =null;
+                    
+
+                }
+            });
+
+      };
+
+
+    //   $scope.title = $stateParams.id;
+
+    // //console.log($stateParams.id);
+    // var currentID = $stateParams.id ; 
+    //  DataCalendar.eventCalendar($stateParams.id).then(function(data){
+    //     $scope.Bookingdesc =data;
+    //  });
 
 })
 
@@ -684,17 +818,18 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
   function($scope,$compile,uiCalendarConfig , DataCalendar, $localstorage , $state , $ionicPopup) {
 
       $scope.create = function() {
-        $state.go("form"); 
+        $state.go("room"); 
       };
 
-      var acount =$localstorage.getObject('acount');
-      var keys = Object.keys(acount);
-      var len = keys.length;
-      //console.log(len);
-      if(len<=0)
-      {
-         $state.go('login');
-      }
+       var acount =$localstorage.getObject('acount');
+       var keys = Object.keys(acount);
+       var len = keys.length;
+       if(len<=0)
+       { 
+          $state.go('login');
+
+          return ;
+       }
 
        
 

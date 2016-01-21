@@ -1,0 +1,42 @@
+<ion-view title="สร้างห้องประชุม">
+ 
+
+    <ion-nav-buttons >
+        <button class="button ion-arrow-left-c button-clear button-positive" nav-direction="back"  ng-click="goBack()">Back</button>
+    </ion-nav-buttons>
+
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+
+        <form class="list" ng-submit="sendPost(data)" >
+           <div class="list">
+              <label class="item item-input">
+                 <div class="input-label">
+                    ชื่อห้อง
+                </div>
+                <input type="text" placeholder="" ng-model="data.name">
+              </label>
+              <label class="item item-input">
+                <div class="input-label">
+                    รายละเอียด
+                </div>
+                <textarea placeholder="" ng-model="data.desc"></textarea>
+              </label>
+              <!--  <label class="item item-input item-select">
+                  <div class="input-label">
+                    กลุ่ม
+                  </div>
+                  <select>
+                    <option>Blue</option>
+                    <option selected>Green</option>
+                    <option>Red</option>
+                  </select>
+              </label> -->
+          </div>
+
+           <input type="submit" value="สร้าง" class="button button-positive  button-block"/>
+
+        </form>
+        
+
+    </ion-content>
+</ion-view>

@@ -1,0 +1,38 @@
+<ion-view title="เลือกห้อง">
+		<ion-nav-buttons side="primary">
+		    <button class="button ion-ios-plus button-clear button-positive btn-addbooking" ng-click="create()"></button>
+		</ion-nav-buttons>
+	<ion-content overflow-scroll="true" padding="true" class="has-header content-bg">
+
+		<ion-refresher
+		  pulling-text="Pull to refresh..."
+		  on-refresh="doRefresh()">
+		</ion-refresher>
+		<div class="list">
+
+		<div class="list">	
+
+		
+
+			<div class="card" ng-repeat="room in roomList">
+			  <ion-item class="item  item-icon-right" href="#/form/{{room.id}}/{{room.name}}"   >
+			    <!-- <img src="https://ptkdeltaomicron.files.wordpress.com/2012/01/meeting-room.jpg"> -->
+				<h2>{{room.name}}</h2>
+				<p>{{room.desc}}</p>
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			  </ion-item>
+			  <div class="item item-divider  item-icon-right">
+			   <!-- 	<i class="ion-android-home"></i>
+			   		 บ้านเว็บไชต์  
+				<i class="ion-android-contacts"></i>
+			   		5 
+			   	 <i class="icon ion-android-more-horizontal" ng-click="gotoEdit({{room.id}})"></i>	-->
+			  </div>
+			</div>
+
+			
+	
+
+		</div>
+	</ion-content>
+</ion-view>

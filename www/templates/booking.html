@@ -1,4 +1,4 @@
-<ion-view title="จองห้องประชุม">
+<ion-view title="{{nameTitle}}">
  
 
     <ion-nav-buttons >
@@ -36,14 +36,19 @@
                    </standard-time-no-meridian>
                 </button>
                </ionic-timepicker>
+          
 
-
-     
-               <span class="input-label">รายละเอียด</span>
+              <span class="input-label">รายละเอียด</span>
                <label class="item item-input">
                 
                 <textarea placeholder="รายละเอียด"  ng-model="$parent.timePiker.title" ></textarea>
               </label>
+     
+               <!-- <span class="input-label">รายละเอียด</span>
+               <label class="item item-">
+                  <a href="" class="avtra-icon"><img src="../img/splash.png"  alt=""></a>
+                  <a href="" class="avtra-icon" ng-click="member-dialog"><i class="icon ion-ios-plus-outline"></i></a>
+              </label> -->
 
               
             </div>

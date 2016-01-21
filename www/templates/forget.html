@@ -1,9 +1,9 @@
 
 <ion-view class="login" title="ลืมรหัสผ่าน">
 
-    <ion-nav-bar class="bar-header bar-light">
-    
-    </ion-nav-bar>
+      <ion-nav-buttons >
+        <button class="button ion-arrow-left-c button-clear button-positive" nav-direction="back"  ng-click="goBack()">Back</button>
+    </ion-nav-buttons>
 
     <ion-content overflow-scroll="true" padding="true" class="has-header ">
         <form class="list">
@@ -17,10 +17,10 @@
             </ion-list>
             <div class="spacer" style="height: 40px;"></div>
             <button class="button button-block button-positive" ng-click="forget()">ขอรหัสผ่านใหม่</button> 
-           <label class="text-center label-forget">
+           <!-- <label class="text-center label-forget">
                 <button class="left button" ng-click= "toTarget('login')">เข้าสู่ระบบ</button>
             </label>
-            <!-- <a href="#" onclick="window.open('/signup', '_system', 'location=yes'); return false;" class="button button-positive button-clear button-block ">Or create an account</a> -->
+            <a href="#" onclick="window.open('/signup', '_system', 'location=yes'); return false;" class="button button-positive button-clear button-block ">Or create an account</a> -->
         </form>
     </ion-content>
 </ion-view>

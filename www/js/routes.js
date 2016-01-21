@@ -96,7 +96,7 @@ angular.module('app.routes', [])
       
         
     .state('form', {
-      url: '/form',
+      url: '/form/:id/:name',
       templateUrl: 'templates/booking.html',
       controller: 'formCtrl'
     })
@@ -129,6 +129,18 @@ angular.module('app.routes', [])
       controller: 'editCtrl',
     })
 
+     .state('room', {
+      url: '/room',
+      templateUrl: 'templates/room.html',
+      controller: 'roomCtrl',
+    })
+
+   .state('newroom', {
+      url: '/newroom/:id',
+      templateUrl: 'templates/newroom.html',
+      controller: 'newroomCtrl',
+    })
+
 
     .state('noconnect', {
       url: '/noconnect',
@@ -143,6 +155,7 @@ angular.module('app.routes', [])
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/calendar');
+  //$urlRouterProvider.otherwise('/room');
 
 });
 

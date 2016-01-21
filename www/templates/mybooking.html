@@ -13,10 +13,11 @@
           
         <ion-list ng-repeat="book in MyBooking">
 
-            <ion-item class="item-divider" >{{book.date | moment:'DD MMMM YYYY'}}</ion-item>
+            <ion-item class="item-divider" >{{ book.date | moment:'DD MMMM YYYY'}}  </ion-item>
             <ion-item class="item item-icon-right"  ng-repeat="item in book.item">
-                    {{item.start | moment : 'h:mm' }} - {{item.end | moment : 'h:mm' }} {{item.title}} 
+                    {{ item.start  * 1000  |  date:'HH:mm' : 'z' }} - {{item.end * 1000  |  date:'HH:mm' : 'z'  }} {{item.title}} 
                  <a href="#/edit/{{item.id}}" class="icon ion-navicon  ion-edit"></a>
+                 <p>{{ Booking.room }} </p>
             </ion-item>
          
         </ion-list>

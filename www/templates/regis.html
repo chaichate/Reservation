@@ -1,9 +1,9 @@
 
 <ion-view class="login" title="สร้างบัญชี">
 
-    <ion-nav-bar class="bar-header bar-light">
-    
-    </ion-nav-bar>
+   <ion-nav-buttons >
+        <button class="button ion-arrow-left-c button-clear button-positive" nav-direction="back"  ng-click="goBack()">Back</button>
+    </ion-nav-buttons>
 
     <ion-content overflow-scroll="true" padding="true" class="has-header ">
         <form  name="form" class="list" ng-submit="regis(data)" >
@@ -33,9 +33,9 @@
                 <div class="spacer" style="height: 40px;"></div>
                 <button class="button button-block button-positive" type="submit">ลงทะเบียน</button> 
            </form>
-           <label class="text-center ">
-                <a class="right button" ng-click="toLogin()" >เข้าสู่ระบบ</a> 
-            </label>
+          <!--  <label class="text-center">
+                <button class="right button" ng-click="toLogin()" >เข้าสู่ระบบ</button> 
+            </label> -->
             <!-- <a href="#" onclick="window.open('/signup', '_system', 'location=yes'); return false;" class="button button-positive button-clear button-block ">Or create an account</a> -->
        
     </ion-content>
