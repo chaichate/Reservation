@@ -711,6 +711,25 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 
 })
 
+.controller('friendCtrl', function ($scope, $stateParams, DataCalendar, $state) {
+     $scope.addFriend = function() {
+
+        $state.go("addfriend"); 
+     };
+
+    
+
+   
+})
+    
+.controller('addfriendCtrl', function ($scope, $stateParams, DataCalendar, $state, $ionicHistory) {
+
+
+    //alert("xxxxx");
+ })
+
+
+
 
 .controller('roomCtrl', function($scope,$stateParams,DataCalendar,$state, $ionicHistory , Loading , $http) {
 

@@ -10,6 +10,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -100,7 +102,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 		
 		NotificationCompat.Builder mBuilder =
 			new NotificationCompat.Builder(context)
-				.setDefaults(defaults)
+				//.setDefaults(defaults)
 				.setSmallIcon(context.getApplicationInfo().icon)
 				.setWhen(System.currentTimeMillis())
 				.setContentTitle(extras.getString("title"))
@@ -121,6 +123,13 @@ public class GCMIntentService extends GCMBaseIntentService {
 		}
 		
 		int notId = 0;
+        String soundName = extras.getString("sound");
+        if (soundName != null) {
+            Resources r = getResources();
+            int resourceId = r.getIdentifier(soundName, "raw", context.getPackageName());
+            Uri soundUri = Uri.parse("android.resource://" + context.getPackageName() + "/" + resourceId);
+            mBuilder.setSound(soundUri);
+        }
 		
 		try {
 			notId = Integer.parseInt(extras.getString("notId"));

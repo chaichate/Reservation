@@ -65,22 +65,31 @@ angular.module('app.routes', [])
         }
       }
     })
-        
+     
       
     
       
         
-    .state('tab.setting', {
-      url: '/setting',
+    // .state('tab.setting', {
+    //   url: '/setting',
+    //   views: {
+    //     'tab-setting': {
+    //       templateUrl: 'templates/setting.html',
+    //      controller: 'settingCtrl'
+    //     }
+    //   }
+    // })
+        
+       
+     .state('tab.friend', {
+      url: '/friend',
       views: {
-        'tab-setting': {
-          templateUrl: 'templates/setting.html',
-         controller: 'settingCtrl'
+        'tab-friend': {
+          templateUrl: 'templates/friend.html',
+          controller: 'friendCtrl'
         }
       }
-    })
-        
-         
+    })      
       
         
     .state('tab.mybooking', {
@@ -92,14 +101,22 @@ angular.module('app.routes', [])
         }
       }
     })
-        
+    
+    
+      .state('addfriend', {
+          url: '/addfriend',
+          templateUrl: 'templates/addfriend.html',
+          controller: 'addfriendCtrl'
+      })
       
+      
+     
         
-    .state('form', {
-      url: '/form/:id/:name',
-      templateUrl: 'templates/booking.html',
-      controller: 'formCtrl'
-    })
+      .state('form', {
+          url: '/form/:id/:name',
+          templateUrl: 'templates/booking.html',
+          controller: 'formCtrl'
+      })
       
       
         

@@ -116,3 +116,19 @@
     height: 50px;
     border-radius: 50%;
 }
+
+
+.bar .button.button-clear {
+    padding: 0 10px;
+    font-size: 20px;
+    /*margin-right: 15px;*/
+    
+}
+
+.Grey {
+    background: #eee;
+}
+.tabs-striped.tabs-background-positive .tabs {
+    background-color: #F8AA36;
+    background-image: none;
+}
