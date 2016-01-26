@@ -72,7 +72,7 @@ angular.module('app.services', ['ionic-timepicker','ionic-datepicker','ngCordova
 						url: Target +'/index.php' ,
 						params : {"_methed" : "REGISTER"} ,
 						data    :object, //forms user object
-                  			headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+                  		headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
 					});
 		},
 
@@ -105,6 +105,51 @@ angular.module('app.services', ['ionic-timepicker','ionic-datepicker','ngCordova
 						params : {"param" : id  ,"_methed" : "currentBook", "memberID": memberID }
 					});
 		 }				
+	};
+
+	
+})
+.service('DataGroup', function($http,$q){
+
+	return {
+		  eventsAdd: function(obj){
+	 		return  $http({
+						method: 'POST',
+						url: Target +'/group.php' ,
+						params : {"_METHOD" : "POST"} ,
+                        data    :obj , //forms user object
+                        headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+					});
+		 },
+          eventsALLGroup: function(id){
+	 		return  $http({
+						method: 'POST',
+						url: Target +'/group.php' ,
+						params : {"_METHOD" : "GET" , "uid" : id } ,
+                       // headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+					});
+		 },
+          eventFindGroup: function(name, id){
+	 		return  $http({
+						method: 'POST',
+						url: Target +'/group.php' ,
+						params : {"_METHOD" : "GETFIND", "name" : name ,"uid" : id   } ,
+                       // headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+					});
+		 },
+          eventFindAddGroup: function(groupID, id){
+              console.log(groupID);
+	 		return  $http({
+						method: 'POST',
+						url: Target +'/group.php' ,
+						params : {"_METHOD" : "PUT", "groupID" : groupID ,"uid" : id   } ,
+                       // headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+					});
+		 },
+         
+         
+         
+         
 	};
 
 	

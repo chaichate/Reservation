@@ -711,26 +711,112 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 
 })
 
-.controller('friendCtrl', function ($scope, $stateParams, DataCalendar, $state) {
+.controller('friendCtrl', function ($scope, $localstorage,  $state, Loading , DataGroup) {
      $scope.addFriend = function() {
-
         $state.go("addfriend"); 
      };
+     
+     $scope.gotoFind = function() {
+        $state.go("findgroup"); 
+     };
+     
+     $scope.gotoSetting = function() {
+        $state.go("setting"); 
+     };
+     
+     $scope.GroupList ={};
+     var arr= $localstorage.getObject('acount');
+     DataGroup.eventsALLGroup(arr.id).then(function (response) {
+        // Loading.hide();
+        // console.log(response.data);
+        $scope.GroupList = response.data
+       
+    }, function (err) {
+        //console.log(err);
+       // Loading.hide();
+    });
 
     
 
    
 })
+.controller('findgroupCtrl', function ($scope, $localstorage,  $state, Loading , DataGroup , $cordovaToast) {
+   $scope.GroupList = {};
+    var arr= $localstorage.getObject('acount');
+    $scope.find = function (name) {
+        
+        console.log(name);
+        Loading.show();
+        DataGroup.eventFindGroup(name,arr.id).then(function (response) {
+            $scope.GroupList = response.data
+            Loading.hide();
+        }, function (err) {
+            Loading.hide();
+        });
+    }
     
-.controller('addfriendCtrl', function ($scope, $stateParams, DataCalendar, $state, $ionicHistory) {
+    
+    $scope.addgroup = function(groupID){
+
+        Loading.show();
+        DataGroup.eventFindAddGroup(groupID,arr.id).then(function (response) {
+            var data = response.data ;
+            Loading.hide();
+            $scope.buttonStyle="button-hide";
+            $cordovaToast.showShortBottom(data.message, 400).then(function (success) {});
+            
+        }, function (err) {
+            Loading.hide();
+            $cordovaToast.showShortBottom(err, 400).then(function (success) {
+               $state.go("friend"); 
+            });
+        });
+    }
+
+})
+    
+.controller('addfriendCtrl', function ($scope, $localstorage,  $state, Loading , DataGroup) {
+    
+})
+
+.controller('addgroupCtrl', function ($scope, $state, DataGroup, Loading , $cordovaToast,$ionicHistory, $localstorage) {
 
 
-    //alert("xxxxx");
- })
+    var arr= $localstorage.getObject('acount');
+    var object2 = {
+        "member":  arr.id,
+        "_METHOD" : "POST"
+    };
+    $scope.addGroupSubmit = function (data) {
+
+        var obj = angular.extend({}, object2, data);
+
+        //console.log(obj);
+        Loading.show();
+        DataGroup.eventsAdd(obj).then(function (response) {
+            Loading.hide();
+            var data = response.data ;
+            //console.log(data.message);
+
+            $cordovaToast.showShortBottom(data.message, 400).then(function (success) {
+               $state.go("friend"); 
+            });
+
+        }, function (err) {
+            //console.log(err);
+            Loading.hide();
+        });
+    }
+    
+    
+     $scope.goback = function() {
+
+        $state.go("addfriend"); 
+     };
 
 
-
-
+})
+ 
 .controller('roomCtrl', function($scope,$stateParams,DataCalendar,$state, $ionicHistory , Loading , $http) {
 
      $scope.create = function() {

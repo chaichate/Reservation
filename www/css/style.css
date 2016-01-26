@@ -132,3 +132,36 @@
     background-color: #F8AA36;
     background-image: none;
 }
+.groupImage{
+    width: 100px;
+    height: 100px;
+    display: block;
+    background: #F8AA36;
+    border-radius: 50%;
+    /*overflow: hidden;*/
+    position: relative;
+    border:0;
+}
+.groupImage img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+}
+.groupImage i{
+    width: 30px;
+    height: 30px;
+    display: block;
+    background: rgba(253, 254, 252, 0.8);
+    border-radius: 50%;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    text-align: center ; 
+    padding-top: 5px;
+    color: #666;
+
+}
+.button-hide{
+    display: none !important ;
+}

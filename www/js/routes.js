@@ -55,6 +55,7 @@ angular.module('app.routes', [])
         }
       }
     })
+    
 
     .state('tab.calendar', {
       url: '/calendar',
@@ -68,17 +69,16 @@ angular.module('app.routes', [])
      
       
     
-      
-        
-    // .state('tab.setting', {
-    //   url: '/setting',
+              
+    .state('setting', {
+      url: '/setting',
     //   views: {
     //     'tab-setting': {
-    //       templateUrl: 'templates/setting.html',
-    //      controller: 'settingCtrl'
-    //     }
-    //   }
-    // })
+          templateUrl: 'templates/setting.html',
+         controller: 'settingCtrl'
+      //  }
+      
+    })
         
        
      .state('tab.friend', {
@@ -103,11 +103,24 @@ angular.module('app.routes', [])
     })
     
     
+      .state('findgroup', {
+          url: '/findgroup',
+          templateUrl: 'templates/findgroup.html',
+          controller: 'findgroupCtrl'
+      })
+    
+    
       .state('addfriend', {
           url: '/addfriend',
           templateUrl: 'templates/addfriend.html',
           controller: 'addfriendCtrl'
       })
+      
+    .state('addgroup', {
+        url: '/addgroup',
+        templateUrl: 'templates/addgroup.html',
+        controller: 'addgroupCtrl'
+    })
       
       
      

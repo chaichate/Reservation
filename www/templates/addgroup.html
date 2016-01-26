@@ -1,0 +1,36 @@
+<ion-view title="สร้างกลุ่ม">
+    <ion-nav-buttons side="">
+         <button class="button ion-arrow-left-c button-clear button-positive" nav-direction="back"  ng-click="goBack()">
+             Back
+          </button>
+      
+    </ion-nav-buttons>
+
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+
+        <form action=""ng-submit="addGroupSubmit(data)">
+            <div class="list">
+               <!--<a href="" class="groupImage" ng-click="uploadImage()">
+                   <img src="../img/bg.png" alt="">
+                   <i class="ion-camera"></i>
+               </a>-->
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">ชื่อกลุ่ม</span>
+                    <input type="text" placeholder="ชื่อกลุ่ม" ng-model="data.name">
+                </label>
+                
+                 <label class="item item-input item-floating-label">
+                    <span class="input-label">รายละเอียด</span>
+                    <input type="text" placeholder="รายละเอียด" ng-model="data.desc" >
+                </label>
+             
+            </div>
+            <button type="submit" class="button button-positive button-block">
+            บันทึก
+            </button>
+
+
+        </form>
+
+    </ion-content>
+</ion-view>

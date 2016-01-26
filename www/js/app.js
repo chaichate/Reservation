@@ -1,6 +1,6 @@
 // Ionic Starter App
-var Target = "http://www.baanwebsite.com/customer/bwsapp/meeting";
-//var Target = "http://192.168.1.222/api";
+//var Target = "http://www.baanwebsite.com/customer/bwsapp/meeting";
+var Target = "http://192.168.1.222/api";
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
