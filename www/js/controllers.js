@@ -711,41 +711,74 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 
 })
 
-.controller('friendCtrl', function ($scope, $localstorage,  $state, Loading , DataGroup) {
-     $scope.addFriend = function() {
-        $state.go("addfriend"); 
-     };
-     
-     $scope.gotoFind = function() {
-        $state.go("findgroup"); 
-     };
-     
-     $scope.gotoSetting = function() {
-        $state.go("setting"); 
-     };
-     
-     $scope.GroupList ={};
-     var arr= $localstorage.getObject('acount');
-     DataGroup.eventsALLGroup(arr.id).then(function (response) {
-        // Loading.hide();
-        // console.log(response.data);
-        $scope.GroupList = response.data
+    .controller('friendCtrl', function ($scope,$ionicPopup, $localstorage, $state, Loading, DataGroup) {
+        $scope.addFriend = function () {
+            $state.go("addfriend");
+        };
+
+        $scope.gotoFind = function () {
+            $state.go("findgroup");
+        };
+
+        $scope.gotoSetting = function () {
+            $state.go("setting");
+        };
+
+
+        var arr = $localstorage.getObject('acount');
+        
+        var showroom = function(){
        
-    }, function (err) {
-        //console.log(err);
-       // Loading.hide();
-    });
+            $scope.GroupList = {};
+            Loading.show();
+            DataGroup.eventsALLGroup(arr.id).then(function (response) {
+                Loading.hide();
+                // console.log(response.data);
+                $scope.GroupList = response.data
 
-    
+            }, function (err) {
+                //console.log(err);
+                Loading.hide();
+            });
+        }
+        
+        showroom();
 
-   
-})
+
+        $scope.deleteItem = function (id) {
+
+            var confirmPopup = $ionicPopup.confirm({
+                title: 'คำยืนยัน',
+                template: 'หากคุณต้องการออกจากห้องกรุณายืนยันอีกครั้ง'
+            });
+
+            confirmPopup.then(function (res) {
+                if (res) {
+
+                    Loading.show();
+                    DataGroup.eventsLeaveRoom(id,arr.id ).then(function (response) {
+                        Loading.hide();
+                        showroom();
+                    }, function (err) {
+                        Loading.hide();
+                    });
+
+                } else {
+                    console.log('You are not sure');
+                }
+            });
+
+        };
+
+    })
+
+
 .controller('findgroupCtrl', function ($scope, $localstorage,  $state, Loading , DataGroup , $cordovaToast) {
    $scope.GroupList = {};
     var arr= $localstorage.getObject('acount');
     $scope.find = function (name) {
         
-        console.log(name);
+       // console.log(name);
         Loading.show();
         DataGroup.eventFindGroup(name,arr.id).then(function (response) {
             $scope.GroupList = response.data
@@ -756,25 +789,102 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
     }
     
     
-    $scope.addgroup = function(groupID){
+    $scope.addgroup = function (groupID) {
 
         Loading.show();
-        DataGroup.eventFindAddGroup(groupID,arr.id).then(function (response) {
-            var data = response.data ;
+        DataGroup.eventFindAddGroup(groupID, arr.id).then(function (response) {
+            var data = response.data;
             Loading.hide();
-            $scope.buttonStyle="button-hide";
-            $cordovaToast.showShortBottom(data.message, 400).then(function (success) {});
-            
+            $scope.buttonStyle = "button-hide";
+            $cordovaToast.showShortBottom(data.message, 400).then(function (success) { });
+
         }, function (err) {
             Loading.hide();
             $cordovaToast.showShortBottom(err, 400).then(function (success) {
-               $state.go("friend"); 
+                $state.go("friend");
             });
         });
     }
 
 })
+.controller('memberlistCtrl', function ($scope,$ionicModal, $localstorage, $cordovaToast , $stateParams, $ionicHistory, Loading , DataGroup) {
     
+    var groupID = $stateParams.id ;
+    $scope.nameTitle = $stateParams.name ;
+    $scope.MemberList = {};
+    
+    
+    Loading.show();
+    DataGroup.eventMemberListGroup(groupID).then(function (response) {
+        $scope.MemberList = response.data    
+        Loading.hide();        
+    }, function (err) {
+        Loading.hide();
+    });
+    
+    
+    $scope.goBack = function() {
+         $ionicHistory.goBack();
+    };
+    
+    
+    $ionicModal.fromTemplateUrl('modal.html', function($ionicModal) {
+        $scope.modal = $ionicModal;
+    }, {
+        // Use our scope for the scope of the modal to keep it simple
+        scope: $scope,
+        // The animation we want to use for the modal entrance
+        animation: 'slide-in-up',
+        focusFirstInput: true
+    });  
+    
+     $scope.openModal = function() {
+        $scope.modal.show();
+    };
+    
+    $scope.hideModal = function() {
+        $scope.modal.hide();
+    };
+    
+
+
+    $scope.find = function (keyword) {
+        Loading.show();
+        $scope.addMemberList=[];
+        DataGroup.eventMemberNoneGroup(groupID, keyword).then(function (response) {
+            $scope.addMemberList = response.data
+            Loading.hide();
+
+        }, function (err) {
+            Loading.hide();
+        });
+
+    }
+    
+    $scope.addUser = function(data){
+       
+        Loading.show();
+        $scope.addMemberList=[];
+        DataGroup.eventSaveNewfriend(data,groupID).then(function (response) {
+           var data = response.data ;
+            $cordovaToast.showShortBottom(data.message, 400).then(function (success) {
+                Loading.hide();
+                $scope.modal.hide();
+            });
+            
+            
+        }, function (err) {
+            Loading.hide();
+            //$scope.modal.hide();
+        });
+    
+       
+    }
+         
+    
+    
+})
+
 .controller('addfriendCtrl', function ($scope, $localstorage,  $state, Loading , DataGroup) {
     
 })
@@ -817,7 +927,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 
 })
  
-.controller('roomCtrl', function($scope,$stateParams,DataCalendar,$state, $ionicHistory , Loading , $http) {
+.controller('roomCtrl', function($scope,$stateParams,$localstorage,DataGroup,$state, $ionicHistory , Loading , $http) {
 
      $scope.create = function() {
         $state.go("newroom"); 
@@ -826,43 +936,54 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
       $scope.goBack = function() {
          $ionicHistory.goBack();
       };
-
+      
+       var arr = $localstorage.getObject('acount');
+        $scope.roomList = {};
 
          $scope.doRefresh = function() {
-         Loading.show();
-        $http({
-          method  : 'POST',
-          url     : Target + "/room.php",
-          params : {"_METHOD" : "GET"} ,
-         })
-          .success(function(data) {
-              Loading.hide();
-              $scope.roomList =data;
-          })
+            DataGroup.eventsALLGroup(arr.id).then(function (response) {
+                $scope.roomList = response.data
+            }, function (err) {
+                Loading.hide();
+            })
          .finally(function() {
            // Stop the ion-refresher from spinning
            $scope.$broadcast('scroll.refreshComplete');
          });
       };
+      
+      
+     
+      $scope.roomList = {};
+      Loading.show();
+      DataGroup.eventsALLGroup(arr.id).then(function (response) {
+          Loading.hide();
+          // console.log(response.data);
+          $scope.roomList = response.data
+
+      }, function (err) {
+          //console.log(err);
+          Loading.hide();
+      });
 
        //var currentID = $stateParams.id ; 
-        Loading.show();
-      $http({
-        method  : 'POST',
-        url     : Target + "/room.php",
-        params : {"_METHOD" : "GET"} ,
-       })
-        .success(function(data) {
-            Loading.hide();
-            $scope.roomList =data;
-        });
+        //  Loading.show();
+        //  $http({
+        //      method: 'POST',
+        //      url: Target + "/room.php",
+        //      params: { "_METHOD": "GET" },
+        //  })
+        //      .success(function (data) {
+        //          Loading.hide();
+        //          $scope.roomList = data;
+        //      });
 
 
 
 
 })
 
-.controller('newroomCtrl', function($scope,$ionicHistory , $localstorage ,Loading ,$http , $cordovaToast) {
+.controller('newroomCtrl', function($scope,$ionicHistory , $localstorage ,Loading ,$http , $cordovaToast,DataGroup) {
 
   
       $scope.goBack = function() {
@@ -870,7 +991,23 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
       };
 
 
-      var arr= $localstorage.getObject('acount');
+      var arr = $localstorage.getObject('acount');
+      $scope.GroupList = {};
+      Loading.show();
+      DataGroup.eventsALLGroup(arr.id).then(function (response) {
+          Loading.hide();
+          // console.log(response.data);
+          $scope.GroupList = response.data
+
+      }, function (err) {
+          //console.log(err);
+          Loading.hide();
+      });
+        
+  
+      
+      
+      
       var object2 = {
          "member":  arr.id,
         "_METHOD" : "POST",

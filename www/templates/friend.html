@@ -1,25 +1,27 @@
-<ion-view title="เพื่อน"  >
-    <ion-nav-buttons side="primary" >
-        <button class="button ion-person-add button-clear"   ng-click="addFriend()"></button>
-        <button class="button ion-android-search button-clear " href="gotoFind()"></button>
-        <button class="button ion-android-more-vertical button-clear "   ng-click="gotoSetting()"></button>
+<ion-view title="เพื่อน">
+    <ion-nav-buttons side="primary">
+        <button class="button ion-ios-plus-outline button-clear" ng-click="addFriend()"></button>
+        <!--<button class="button ion-android-search button-clear " href="gotoFind()"></button>-->
+        <button class="button ion-ios-gear button-clear " ng-click="gotoSetting()"></button>
     </ion-nav-buttons>
-
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <div class="list">
-            
-            <div class="item item-divider">
-               กลุ่ม
+        
+        <ion-list show-delete="showDelete" class="list list-editing">
+
+            <div class="item item-button-right bar-positive">
+                รายชื่อห้อง
+                <button class="button button-icon ion-ios-minus" ng-click="showDelete = !showDelete"></button>
             </div>
-            <a class="item item-avatar" href="#" ng-repeat="item in GroupList">
-                <img src="../img/splash.png">
+            <ion-item class="item-toggle item-button-right" href="#/member-list/{{item.id}}/{{item.name}}" ng-repeat="item in GroupList">
+                <!--<img src="../img/splash.png">-->
+                <ion-delete-button class="ion-minus-circled" ng-click="deleteItem(item.id)"></ion-delete-button>
                 <h2>{{item.name}}</h2>
                 <p>{{item.desc}}</p>
-            </a>
-          
-         
-            
-   
-        </div>
+
+                <div class="toggle" ng-if="!showDelete">
+                    <input type="checkbox">
+                </div>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>

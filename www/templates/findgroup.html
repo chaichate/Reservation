@@ -1,11 +1,12 @@
 <ion-view title="ค้นหา">
-    <ion-nav-buttons side="primary">
-        <button class="button ion-android-more-vertical button-clear " ng-click="addUser()"></button>
+      <ion-nav-buttons >
+        <button class="button ion-arrow-left-c button-clear button-positive" nav-direction="back"  ng-click="goBack()">Back</button>
     </ion-nav-buttons>
+    
     <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
         <div class="tabs">
             <a class="tab-item " href="#/addfriend">
-            สร้างกลุ่ม
+            สร้างห้อง
         </a>
 
             <a class="tab-item active" href="#/findgroup">
@@ -22,7 +23,7 @@
             </div>
              <div class="item item-input-inset">
                 <label class="item-input-wrapper">
-                <input type="text" ng-model="name" placeholder="ชื่อกลุ่ม">
+                <input type="text" ng-model="name" placeholder="ชื่อห้อง">
                 </label>
                 <button ng-click="find(name)" class="button button-small">
                 ค้นหา

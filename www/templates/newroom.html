@@ -21,16 +21,14 @@
                 </div>
                 <textarea placeholder="" ng-model="data.desc"></textarea>
               </label>
-              <!--  <label class="item item-input item-select">
+                <label class="item item-input item-select">
                   <div class="input-label">
                     กลุ่ม
                   </div>
-                  <select>
-                    <option>Blue</option>
-                    <option selected>Green</option>
-                    <option>Red</option>
+                  <select ng-model="data.Select" >
+                    <option ng-repeat="item in GroupList">{{item.name}}</option>
                   </select>
-              </label> -->
+              </label> 
           </div>
 
            <input type="submit" value="สร้าง" class="button button-positive  button-block"/>

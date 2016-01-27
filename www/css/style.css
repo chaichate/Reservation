@@ -165,3 +165,11 @@
 .button-hide{
     display: none !important ;
 }
+
+list-editing .toggle {
+	top:20px;
+}
+
+.activate-link {
+	pointer-events: initial;
+}

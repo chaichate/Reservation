@@ -138,7 +138,7 @@ angular.module('app.services', ['ionic-timepicker','ionic-datepicker','ngCordova
 					});
 		 },
           eventFindAddGroup: function(groupID, id){
-              console.log(groupID);
+
 	 		return  $http({
 						method: 'POST',
 						url: Target +'/group.php' ,
@@ -146,9 +146,44 @@ angular.module('app.services', ['ionic-timepicker','ionic-datepicker','ngCordova
                        // headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
 					});
 		 },
+         eventMemberListGroup: function(groupID){
+	 		return  $http({
+						method: 'POST',
+						url: Target +'/group.php' ,
+						params : {"_METHOD" : "GETLIST", "groupID" : groupID  } ,
+                       // headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+					});
+		 },
+         eventMemberNoneGroup: function(groupID, KeyWord ){
+	 		return  $http({
+						method: 'POST',
+						url: Target +'/group.php' ,
+						params : {"_METHOD" : "GETNONEGROUP", "groupID" : groupID , "KeyWord" :KeyWord  } ,
+                       // headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+					});
+		 },
+          eventSaveNewfriend: function(obj , groupID ){
+	 		return  $http({
+						method: 'POST',
+						url: Target +'/group.php' ,
+						params : {"_METHOD" : "SAVE_NEW_FRIEND", "groupID" : groupID } ,
+                        data    :obj , //forms user object
+                        headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+					});
+		 },
+         eventsLeaveRoom: function(groupID , uid ){
+	 		return  $http({
+						method: 'POST',
+						url: Target +'/group.php' ,
+						params : {"_METHOD" : "DELETE", "groupID" : groupID , "uid" : uid } ,
+                      // data    :obj , //forms user object
+                      //  headers : {'Content-Type': 'application/x-www-form-urlencoded'} 
+					});
+		 },
          
          
          
+        
          
 	};
 

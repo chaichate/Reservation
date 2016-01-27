@@ -110,11 +110,20 @@ angular.module('app.routes', [])
       })
     
     
-      .state('addfriend', {
-          url: '/addfriend',
-          templateUrl: 'templates/addfriend.html',
-          controller: 'addfriendCtrl'
-      })
+    .state('addfriend', {
+        url: '/addfriend',
+        templateUrl: 'templates/addfriend.html',
+        controller: 'addfriendCtrl'
+    })
+    
+    
+    .state('member-list', {
+        url: '/member-list/:id/:name',
+        templateUrl: 'templates/member-list.html',
+        controller: 'memberlistCtrl'
+    })
+
+      
       
     .state('addgroup', {
         url: '/addgroup',
