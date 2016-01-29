@@ -161,7 +161,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
        $scope.BookingToday =[];
         // $scope.BookingToday = DataToday.events ;
        Loading.show();
-       DataBooking.eventsToday().then(function (response) {
+       DataBooking.eventsToday(acount.id).then(function (response) {
           Loading.hide();
           $scope.BookingToday =response.data;
        }, function (err) {
@@ -170,7 +170,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
       
 
       $scope.doRefresh = function() {
-         DataBooking.eventsToday().then(function (response) {
+         DataBooking.eventsToday(acount.id).then(function (response) {
             $scope.BookingToday =response.data;
          })
          .finally(function() {
@@ -418,15 +418,65 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 
 })
    
-.controller('acountCtrl', function($scope , $state , $localstorage, $ionicHistory) {
-     $scope.goBack = function() {
-         $ionicHistory.goBack();
-      };
-     
+    .controller('acountCtrl', function ($scope, Loading, $state, $cordovaCamera, $localstorage, $ionicHistory, $cordovaFileTransfer , $cordovaFile) {
+        $scope.goBack = function () {
+            $ionicHistory.goBack();
+        };
 
-      $scope.MyAcount  = $localstorage.getObject('acount');
-      //console.log($scope.MyAcount );
-})
+
+        $scope.MyAcount = $localstorage.getObject('acount');
+       console.log($scope.MyAcount );
+      
+         $scope.fileName ="";
+      
+        $scope.upload = function () {            
+            setTimeout(function() {
+                document.getElementById('file').click()
+                $scope.clicked = true;
+            }, 0);         
+        }
+        
+   
+        angular.element('#file').on('change', function (event) {
+            console.log('fire! angular#element change event');
+
+            var file = event.target.files[0];
+            $scope.fileName = file.name;
+            $scope.apply( file.name ,$scope.MyAcount.id);
+        });
+
+
+        $scope.apply= function( file_name , id ){
+
+            // Destination URL 
+            var url =  Target + "/index.php";
+	 
+            //File for Upload
+            var targetPath = cordova.file.dataDirectory + file_name;
+	 
+            // File name only
+            var filename = targetPath.split("/").pop();
+
+            var options = {
+                fileKey: "file",
+                fileName: filename,
+                chunkedMode: false,
+                mimeType: "image/jpg",
+                params: { "_METHOD" : "UPLOAD",  "uid" : id , 'directory': 'album', 'fileName': filename } // directory represents remote directory,  fileName represents final remote file name
+            };
+            Loading.show();
+            $cordovaFileTransfer.upload(url, targetPath, options).then(function (result) {
+                Loading.hide();
+                console.log("SUCCESS: " + JSON.stringify(result.response));
+            }, function (err) {
+                console.log("ERROR: " + JSON.stringify(err));
+            }, function (progress) {
+                // PROGRESS HANDLING GOES HERE
+            });
+        }
+        
+
+    })
 
 
 .controller('editCtrl', function($scope ,$state ,DataBooking,$localstorage, $ionicHistory,$stateParams,Loading,$http,$ionicPopup ) {
@@ -705,7 +755,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 
     //console.log($stateParams.id);
     var currentID = $stateParams.id ; 
-     DataCalendar.eventCalendar($stateParams.id).then(function(data){
+     DataCalendar.eventCalendar($stateParams.id, "CURRENT").then(function(data){
         $scope.Bookingdesc =data;
      });
 
@@ -1172,7 +1222,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
    
     /* event sources array*/
     //$scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
-      DataCalendar.eventCalendar().then(function(data){
+      DataCalendar.eventCalendar(acount.id , "GET").then(function(data){
 
             $scope.uiConfig = {
               calendar:{
@@ -1203,7 +1253,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 
 
      $scope.doRefresh = function() {
-         DataCalendar.eventCalendar().then(function(data){
+         DataCalendar.eventCalendar(acount.id,"GET").then(function(data){
 
             $scope.uiConfig = {
               calendar:{

@@ -12,7 +12,7 @@
                 รายชื่อห้อง
                 <button class="button button-icon ion-ios-minus" ng-click="showDelete = !showDelete"></button>
             </div>
-            <ion-item class="item-toggle item-button-right" href="#/member-list/{{item.id}}/{{item.name}}" ng-repeat="item in GroupList">
+            <ion-item class="" href="#/member-list/{{item.id}}/{{item.name}}" ng-repeat="item in GroupList">
                 <!--<img src="../img/splash.png">-->
                 <ion-delete-button class="ion-minus-circled" ng-click="deleteItem(item.id)"></ion-delete-button>
                 <h2>{{item.name}}</h2>

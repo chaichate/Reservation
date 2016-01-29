@@ -82,11 +82,11 @@ angular.module('app.services', ['ionic-timepicker','ionic-datepicker','ngCordova
 .service('DataBooking', function($http){
 
 	return {
-		  eventsToday: function(){
+		  eventsToday: function(id){
 	 		return  $http({
 						method: 'GET',
 						url: Target +'/booking.php' ,
-						//params : {"action" : "today"}
+						params : {"uid" : id }
 					});
 		 },
 		 eventsMybook: function(id){
@@ -197,11 +197,11 @@ angular.module('app.services', ['ionic-timepicker','ionic-datepicker','ngCordova
 		  // 		  { id: 1,title: '',start: '2015-12-09T12:30:00',url: '#/tab/today' , allDay: true  },
 		  //   ]
 
-		  eventCalendar : function(id){        
+		  eventCalendar : function(id , METHOD ){        
 		  	return  $http({
 						method: 'GET',
 						url: Target +'/calendar.php' ,
-						params : {"params" : id  }
+						params : {"params" : id , "_METHOD" : METHOD }
 					}).then(function(response){
 						return response.data;
 					}) ;

@@ -14,7 +14,7 @@
           </ion-refresher>
 
         <div class="list card" ng-repeat="Booking in Bookingdesc">
-            <div class="item item-divider">{{Booking.start}} ถึง {{Booking.end}}</div>
+            <div class="item item-divider">{{Booking.begin *1000  |  date:'HH:mm' : 'z'}} ถึง {{Booking.end * 1000 |  date:'HH:mm' : 'z' }}</div>
             <div class="item item-body">
                 <div>
                    {{Booking.title}}

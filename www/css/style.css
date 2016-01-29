@@ -173,3 +173,32 @@ list-editing .toggle {
 .activate-link {
 	pointer-events: initial;
 }
+.item-thumbnail-left > div.frame {
+    position: absolute;
+    top: 0px;
+    left:0px;
+    max-width: 80px;
+    max-height: 80px;
+    width: 100%;
+    height: 100%;
+  
+}
+.item-thumbnail-left > div.frame button {
+    position: absolute;
+    top: 5px;
+    left:5px;
+    color: #fff;
+    background: red;
+    border-radius: 50%;
+
+}
+
+.item-thumbnail-left > div.frame  img:first-child {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    max-width: 80px;
+    max-height: 80px;
+    width: 100%;
+    height: 100%;
+}

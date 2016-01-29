@@ -11,7 +11,11 @@
     <ion-content overflow-scroll="true" padding="true" class="has-header">
         <ion-list>
             <ion-item  class="item-thumbnail-left">
-                <img src="{{MyAcount.image}}">
+                <div class="frame">
+                 <img src="{{MyAcount.image}}">
+                 <button ng-click="upload()" class="icon ion-camera button-clear" ></button>
+                 <input class="ng-hide"  type="file" id="file"/>
+                </div>
                 <h2>{{MyAcount.name}}</h2>
                 <p>{{MyAcount.email}}</p>
             </ion-item>
