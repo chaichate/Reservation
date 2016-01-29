@@ -358,7 +358,11 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
             } else {
               console.log('Selected date is : ', val)
                $scope.inputDate =val ;
+               val=moment(val).tz("Asia/Bangkok").format('YYYY-MM-DD Z');   // +01:00
+               
                $scope.master = angular.extend({}, $scope.master ,  {date : val } ); 
+               
+               // console.log($scope.master)
             }
 
 
@@ -375,7 +379,9 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
               };
            
             var object = angular.extend({}, object2,$scope.master, $scope.timePiker );
-            //console.log( object );
+            console.log( object );
+            
+            
              Loading.show();
 
             $http({
@@ -658,9 +664,13 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
                    $scope.inputDate = "กรุณาเลือกวันที่" ;
                    $scope.master = angular.extend({}, $scope.master ,  {date : "" } ); 
                 } else {
-                 // console.log('Selected date is : ', val)
+                   console.log('Selected date is : ', val)
                    $scope.inputDate =val ;
+                   val=moment(val).tz("Asia/Bangkok").format('YYYY-MM-DD Z');   // +07:00
                    $scope.master = angular.extend({}, $scope.master ,  {date : val } ); 
+                   
+                   //console.log( $scope.master )
+                   
                 }
 
 
