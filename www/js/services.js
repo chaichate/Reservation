@@ -197,25 +197,38 @@ angular.module('app.services', ['ionic-timepicker','ionic-datepicker','ngCordova
 		  // 		  { id: 1,title: '',start: '2015-12-09T12:30:00',url: '#/tab/today' , allDay: true  },
 		  //   ]
 
-		  eventCalendar : function(id , METHOD ){        
-		  	return  $http({
-						method: 'GET',
-						url: Target +'/calendar.php' ,
-						params : {"params" : id , "_METHOD" : METHOD }
-					}).then(function(response){
-						return response.data;
-					}) ;
+        eventCalendar: function (id, METHOD) {
+            return $http({
+                method: 'GET',
+                url: Target + '/calendar.php',
+                params: { "params": id, "_METHOD": METHOD }
+            }).then(function (response) {
+                return response.data;
+            });
 
-			   // var defer = $q.defer();
-			   //  $http.get(Target +'/calendar.php').then(function(response) {
-			   //    defer.resolve(response.data);
-			   //  }, function(response) {
-			   //    defer.reject(response);
-			   //  });
+            // var defer = $q.defer();
+            //  $http.get(Target +'/calendar.php').then(function(response) {
+            //    defer.resolve(response.data);
+            //  }, function(response) {
+            //    defer.reject(response);
+            //  });
 
-			   // // console.log(defer.promise);
-			   //  return defer.promise;
-			}
+            // // console.log(defer.promise);
+            //  return defer.promise;
+        },
+        CurrentCalendar: function (id,date , METHOD) {
+            return $http({
+                method: 'GET',
+                url: Target + '/calendar.php',
+                params: { "uid": id , "params":date, "_METHOD": METHOD }
+            }).then(function (response) {
+                return response.data;
+            });
+           
+        }
+        
+        
+        
 
 
 	};

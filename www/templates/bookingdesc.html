@@ -1,31 +1,32 @@
 <ion-view title="รายการวันที่ {{title}}">
-    <ion-nav-buttons >
-        <button class="button ion-arrow-left-c button-clear button-positive" nav-direction="back"  ng-click="goBack()">Back</button>
+    <ion-nav-buttons>
+        <button class="button ion-arrow-left-c button-clear button-positive" nav-direction="back" ng-click="goBack()">Back</button>
     </ion-nav-buttons>
-    
+
     <ion-nav-buttons side="right ">
         <button class="button ion-ios-plus button-clear button-positive btn-addbooking" ng-click="create()"></button>
     </ion-nav-buttons>
     <ion-content overflow-scroll="true" padding="true" class="has-header">
 
-        <ion-refresher
-            pulling-text="Pull to refresh..."
-            on-refresh="doRefresh()">
-          </ion-refresher>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+        </ion-refresher>
 
         <div class="list card" ng-repeat="Booking in Bookingdesc">
-            <div class="item item-divider">{{Booking.begin *1000  |  date:'HH:mm' : 'z'}} ถึง {{Booking.end * 1000 |  date:'HH:mm' : 'z' }}</div>
+            <div class="item item-divider">{{Booking.begin *1000 | date:'HH:mm' : 'z'}} ถึง {{Booking.end * 1000 | date:'HH:mm' : 'z' }}</div>
             <div class="item item-body">
                 <div>
-                   {{Booking.title}}
+                    {{Booking.title}}
                     <br>
                     <small>โดย : {{Booking.acount}}</small>
                 </div>
             </div>
+            <div class="item item-divider">
+                <i class="icon ion-home"></i> {{ Booking.room }}
+            </div>
         </div>
 
 
-  <!--       <div class="list card">
+        <!--       <div class="list card">
             <div class="item item-divider">13.00-15.00</div>
             <div class="item item-body">
                 <div>
@@ -35,6 +36,6 @@
                 </div>
             </div>
         </div> -->
-    
+
     </ion-content>
 </ion-view>

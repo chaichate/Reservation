@@ -832,7 +832,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 })
 
    
-.controller('bookdescCtrl', function($scope,$stateParams,DataCalendar,$state, $ionicHistory) {
+.controller('bookdescCtrl', function($scope ,$stateParams,DataCalendar,$state, $ionicHistory , $localstorage ) {
 
      $scope.create = function() {
         $state.go("form"); 
@@ -845,8 +845,9 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
       $scope.title = $stateParams.id;
 
     //console.log($stateParams.id);
-    var currentID = $stateParams.id ; 
-     DataCalendar.eventCalendar($stateParams.id, "CURRENT").then(function(data){
+     var arr = $localstorage.getObject('acount');
+    //var currentID = $stateParams.id ; 
+     DataCalendar.CurrentCalendar(arr.id ,$stateParams.id, "CURRENT").then(function(data){
         $scope.Bookingdesc =data;
      });
 
@@ -1026,13 +1027,13 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
     
 })
 
-.controller('addfriendCtrl', function ($scope, $localstorage,  $state, Loading , DataGroup) {
-    
+.controller('addfriendCtrl', function ($scope, $localstorage,  $state, $ionicHistory , DataGroup) {
+    $scope.goBack = function () {
+       $state.go("tab.friend"); 
+    };       
 })
 
 .controller('addgroupCtrl', function ($scope, $state, DataGroup, Loading , $cordovaToast,$ionicHistory, $localstorage) {
-
-
     var arr= $localstorage.getObject('acount');
     var object2 = {
         "member":  arr.id,
@@ -1060,10 +1061,14 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
     }
     
     
-     $scope.goback = function() {
+    //  $scope.goback = function() {
 
-        $state.go("addfriend"); 
-     };
+    //     $state.go("addfriend"); 
+    //  };
+     
+      $scope.goBack = function () {
+        $ionicHistory.goBack();
+      }; 
 
 
 })
