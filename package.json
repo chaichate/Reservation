@@ -16,25 +16,25 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
+    "cordova-plugin-datepicker",
     {
-      "locator": "https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git",
-      "id": "cordova-plugin-datepicker"
+      "locator": "https://github.com/wymsee/cordova-imagePicker.git",
+      "id": "com.synconset.imagepicker"
     },
-    "cordova-plugin-dialogs",
-    "cordova-plugin-network-information",
     "cordova-plugin-whitelist",
-    {
-      "locator": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
-      "id": "cordova-plugin-x-toast"
-    }
+    "cordova-plugin-file-transfer",
+    "cordova-plugin-file",
+    "cordova-plugin-network-information",
+    "cordova-plugin-x-toast",
+    "cordova-plugin-dialogs"
   ],
   "cordovaPlatforms": [
-    "android",
+    "ios",
     {
-      "platform": "android",
+      "platform": "ios",
       "version": "",
-      "locator": "android"
+      "locator": "ios"
     },
-    "ios"
+    "android"
   ]
 }

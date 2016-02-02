@@ -7,38 +7,29 @@
         "files": {}
     },
     "installed_plugins": {
+        "com.synconset.imagepicker": {
+            "PACKAGE_NAME": "com.bmco.Reservation"
+        },
         "cordova-plugin-datepicker": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
+            "PACKAGE_NAME": "com.bmco.Reservation"
         },
         "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
-        },
-        "cordova-plugin-network-information": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
-        },
-        "cordova-plugin-x-toast": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
-        },
-        "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
-        },
-        "com.phonegap.plugins.PushPlugin": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
-        },
-        "cordova-plugin-file-transfer": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
+            "PACKAGE_NAME": "com.bmco.Reservation"
         },
         "cordova-plugin-file": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
+            "PACKAGE_NAME": "com.bmco.Reservation"
         },
-        "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.bmco.Reservation"
         },
-        "cordova-plugin-contacts": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.bmco.Reservation"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.bmco.Reservation"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "com.bmco.Reservation"
         }
     },
     "dependent_plugins": {}

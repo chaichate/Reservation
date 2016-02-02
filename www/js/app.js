@@ -78,8 +78,7 @@ angular.module('app', ['ionic', 'app.controllers','miniapp', 'app.routes', 'app.
  // $httpProvider.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
   $ionicPlatform.ready(function($ionicPlatform, $ionicPopup) {
 
-
-    if(window.cordova && window.cordova.plugins.Keyboard) {s
+    if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if(window.StatusBar) {

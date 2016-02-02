@@ -190,7 +190,19 @@ list-editing .toggle {
     color: #fff;
     background: red;
     border-radius: 50%;
-
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    display: block ;
+    padding: 0;
+    border:0; 
+    font-size: 13px;
+    line-height: 0;
+}
+.item-thumbnail-left > div.frame button:before {
+   margin: 0;
+   padding: 0;
+   line-height: 0;
 }
 
 .item-thumbnail-left > div.frame  img:first-child {

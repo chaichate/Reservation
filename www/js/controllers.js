@@ -1,4 +1,4 @@
-angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datepicker','ngCordova'])
+angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datepicker','ngCordova','jrCrop'])
   
 .controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, $localstorage , Loading,$ionicHistory) {
   $scope.data = {};
@@ -153,6 +153,9 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 
           return ;
        }
+         $scope.gotoSetting = function () {
+            $state.go("setting");
+        };
 
       $scope.create = function() {
           $state.go("room"); 
@@ -182,64 +185,70 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 })
 .controller('MybookCtrl', function($scope,DataBooking,Loading,$localstorage,$state) {
 
-      var acount =$localstorage.getObject('acount');
-       var keys = Object.keys(acount);
-       var len = keys.length;
-       if(len<=0)
-       { 
-          $state.go('login');
+    var acount = $localstorage.getObject('acount');
+    var keys = Object.keys(acount);
+    var len = keys.length;
+    if (len <= 0) {
+        $state.go('login');
 
-          return ;
-       }
+        return;
+    }
+
+    $scope.gotoSetting = function () {
+        $state.go("setting");
+    };
 
 
 
-       $scope.create = function() {
-          $state.go("room"); 
-      };
+    $scope.create = function () {
+        $state.go("room");
+    };
 
-      var arr= $localstorage.getObject('acount');
+    var arr = $localstorage.getObject('acount');
            
 
-     // $scope.MyBooking = DataMybook.events ;
-      $scope.MyBooking =[];
-       Loading.show();
-       DataBooking.eventsMybook( arr.id).then(function (response) {
-         Loading.hide();
-          $scope.MyBooking =response.data;
-       }, function (err) {
-         //console.log(err);
-          Loading.hide();
-       });
+    // $scope.MyBooking = DataMybook.events ;
+    $scope.MyBooking = [];
+    Loading.show();
+    DataBooking.eventsMybook(arr.id).then(function (response) {
+        Loading.hide();
+        $scope.MyBooking = response.data;
+    }, function (err) {
+        //console.log(err);
+        Loading.hide();
+    });
 
 
-      $scope.doRefresh = function() {
-         DataBooking.eventsMybook( arr.id).then(function (response) {
-              $scope.MyBooking =response.data;
-         })
-         .finally(function() {
-           // Stop the ion-refresher from spinning
-           $scope.$broadcast('scroll.refreshComplete');
-         });
-      };
+    $scope.doRefresh = function () {
+        DataBooking.eventsMybook(arr.id).then(function (response) {
+            $scope.MyBooking = response.data;
+        })
+        .finally(function () {
+            // Stop the ion-refresher from spinning
+            $scope.$broadcast('scroll.refreshComplete');
+        });
+    };
       
 
 })   
-.controller('settingCtrl', function($scope,$state,$localstorage) {
-      var acount =$localstorage.getObject('acount');
-       var keys = Object.keys(acount);
-       var len = keys.length;
-       if(len<=0)
-       { 
-          $state.go('login');
+.controller('settingCtrl', function ($scope, $state, $localstorage , $ionicHistory) {
+    var acount = $localstorage.getObject('acount');
+    var keys = Object.keys(acount);
+    var len = keys.length;
+    if (len <= 0) {
+        $state.go('login');
 
-          return ;
-       }
+        return;
+    }
 
-     $scope.logOut = function() {
-          $localstorage.removeItem('acount');
-          $state.go('login');
-     }
+    $scope.goBack = function () {
+        $ionicHistory.goBack();
+    };
+
+    $scope.logOut = function () {
+        $localstorage.removeItem('acount');
+        $state.go('login');
+    }
 
 })
    
@@ -424,63 +433,135 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 
 })
    
-    .controller('acountCtrl', function ($scope, Loading, $state, $cordovaCamera, $localstorage, $ionicHistory, $cordovaFileTransfer , $cordovaFile) {
+    .controller('acountCtrl', function ($scope, Loading, $state, $cordovaCamera, $localstorage, $ionicHistory,
+        $cordovaFileTransfer, $cordovaFile, $cordovaImagePicker, $ionicPlatform ,$jrCrop ) {
         $scope.goBack = function () {
             $ionicHistory.goBack();
         };
 
 
-        $scope.MyAcount = $localstorage.getObject('acount');
-       console.log($scope.MyAcount );
-      
-         $scope.fileName ="";
-      
-        $scope.upload = function () {            
-            setTimeout(function() {
-                document.getElementById('file').click()
-                $scope.clicked = true;
-            }, 0);         
-        }
-        
-   
-        angular.element('#file').on('change', function (event) {
-            console.log('fire! angular#element change event');
+        $scope.collection = {
+            selectedImage: ''
+        };
 
-            var file = event.target.files[0];
-            $scope.fileName = file.name;
-            $scope.apply( file.name ,$scope.MyAcount.id);
+
+        $scope.MyAcount = $localstorage.getObject('acount');
+        //console.log($scope.MyAcount);
+
+        $scope.fileName = "";
+
+        $ionicPlatform.ready(function () {
+
+                     
+            $scope.getImageSaveContact = function () {       
+                // Image picker will load images according to these settings
+                var options = {
+                    maximumImagesCount: 1, // Max number of selected images, I'm using only one for this example
+                    width: 800,
+                    height: 800,
+                    quality: 80            // Higher is better
+                };
+
+                $cordovaImagePicker.getPictures(options).then(function (results) {
+                    // Loop through acquired images
+                    for (var i = 0; i < results.length; i++) {
+                        $scope.collection.selectedImage = results[i]; 
+                        
+                        
+                        $jrCrop.crop({
+                            url: results[i] ,
+                            width: 200,
+                            height: 200
+                        }).then(function(canvas) {
+                            // success!
+                            var image = canvas.toDataURL();
+                            apply( image , $scope.MyAcount.id);
+                        }, function() {
+                            // User canceled or couldn't load image.
+                        });
+                        
+                        
+                        //apply( results[i] , $scope.MyAcount.id);
+                        
+                        
+                        
+                         // We loading only one image so we can use it like this
+                       // console.log('Image URI: ' + results[i]);
+                        // window.plugins.Base64.encodeFile($scope.collection.selectedImage, function (base64) {  // Encode URI to Base64 needed for contacts plugin
+                        //     // $scope.addContact();    // Save contact
+                        //     apply(base64, $scope.MyAcount.id);
+                        //     $scope.collection.selectedImage = base64;
+                        //     console.log(base64);
+                        // });
+                    }
+                }, function (error) {
+                    console.log('Error: ' + JSON.stringify(error));    // In case of error
+                });
+            };
+            
+            
+            
+            var  apply = function (file_name, id) {
+
+
+                // Destination URL 
+                var url = Target + "/upload.php";
+	 
+                //File for Upload
+                var targetPath = file_name;
+                // var targetPath = cordova.file.dataDirectory + file_name;
+                // console.log(cordova.file.dataDirectory);
+               // console.log(targetPath);
+                // File name only
+                // var filename = targetPath.split("/").pop();
+                var filename = targetPath.substr(targetPath.lastIndexOf('/') + 1);
+                //console.log(filename);
+
+                var options = {
+                    fileKey: "file",
+                    fileName: filename,
+                    chunkedMode: false,
+                    mimeType: "image/jpg",
+                   // headers: { 'headerParam': 'headerValue' },
+                    params: { "_METHOD": "UPLOAD", "uid": id, 'directory': 'album', 'fileName': filename } // directory represents remote directory,  fileName represents final remote file name
+                };
+                
+               // console.log(options);
+                
+                Loading.show();
+                $cordovaFileTransfer.upload(encodeURI(url), targetPath, options).then(function (result) {
+                    Loading.hide();
+                    
+                    
+                  var  data = JSON.parse(result.response );
+                   $scope.MyAcount.image = data.image ; 
+                    //console.log(data.image);
+                    
+                    var json =   $localstorage.getObject('acount');
+                    
+                     $localstorage.setObject('acount', {
+                            id: json.id ,
+                            name: json.name ,
+                            email: json.email,
+                            image: data.image
+                     });
+
+                    
+                    
+                }, function (err) {
+                    Loading.hide();
+                    console.log("ERROR: " + JSON.stringify(err));
+                }, function (progress) {
+                    // PROGRESS HANDLING GOES HERE
+                });
+            }
+            
+            
+            
+
         });
 
 
-        $scope.apply= function( file_name , id ){
-
-            // Destination URL 
-            var url =  Target + "/index.php";
-	 
-            //File for Upload
-            var targetPath = cordova.file.dataDirectory + file_name;
-	 
-            // File name only
-            var filename = targetPath.split("/").pop();
-
-            var options = {
-                fileKey: "file",
-                fileName: filename,
-                chunkedMode: false,
-                mimeType: "image/jpg",
-                params: { "_METHOD" : "UPLOAD",  "uid" : id , 'directory': 'album', 'fileName': filename } // directory represents remote directory,  fileName represents final remote file name
-            };
-            Loading.show();
-            $cordovaFileTransfer.upload(url, targetPath, options).then(function (result) {
-                Loading.hide();
-                console.log("SUCCESS: " + JSON.stringify(result.response));
-            }, function (err) {
-                console.log("ERROR: " + JSON.stringify(err));
-            }, function (progress) {
-                // PROGRESS HANDLING GOES HERE
-            });
-        }
-        
 
     })
 
@@ -1122,6 +1203,10 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
       $scope.create = function() {
         $state.go("room"); 
       };
+      
+        $scope.gotoSetting = function () {
+            $state.go("setting");
+        };
 
        var acount =$localstorage.getObject('acount');
        var keys = Object.keys(acount);
