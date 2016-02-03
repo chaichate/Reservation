@@ -48,6 +48,7 @@ angular.module('app.routes', [])
         
     .state('tab.today', {
       url: '/today',
+      cache: false,
       views: {
         'tab-today': {
           templateUrl: 'templates/today.html',
@@ -58,6 +59,7 @@ angular.module('app.routes', [])
     
 
     .state('tab.calendar', {
+      cache: false,
       url: '/calendar',
       views: {
         'tab-calendar': {
@@ -82,6 +84,7 @@ angular.module('app.routes', [])
         
        
      .state('tab.friend', {
+      cache: false,
       url: '/friend',
       views: {
         'tab-friend': {
@@ -93,6 +96,7 @@ angular.module('app.routes', [])
       
         
     .state('tab.mybooking', {
+      cache: false,
       url: '/mybooking',
       views: {
         'tab-mybooking': {
@@ -111,6 +115,7 @@ angular.module('app.routes', [])
     
     
     .state('addfriend', {
+        cache: false,
         url: '/addfriend',
         templateUrl: 'templates/addfriend.html',
         controller: 'addfriendCtrl'

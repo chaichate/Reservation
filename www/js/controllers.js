@@ -1,6 +1,6 @@
 angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datepicker','ngCordova','jrCrop'])
   
-.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, $localstorage , Loading,$ionicHistory) {
+.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, $localstorage , Loading,$ionicHistory ,  $timeout ) {
   $scope.data = {};
 
       $scope.toRegis = function() {
@@ -35,8 +35,17 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
                     email: json.email,
                     image:json.images
                });
+               
+                $timeout(function () {
+                    $ionicHistory.clearCache();
+                    $ionicHistory.clearHistory();
+                    // $log.debug('clearing cache')
+                },300) 
+               
+                // $ionicHistory.clearCache();
+                // $ionicHistory.clearHistory();
+                $state.go('tab.calendar', {}, {reload:true} );
 
-                $state.go('tab.calendar');
             }
             else
             {
@@ -60,7 +69,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
 })
 
   
-.controller('forgetCtrl', function($scope, LoginService, Loading ,$cordovaToast , $state) {
+.controller('forgetCtrl', function($scope, LoginService, Loading ,$cordovaToast , $state,  $ionicHistory ) {
 
        $scope.goBack = function() {
          $ionicHistory.goBack();
@@ -270,7 +279,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
       var curentID = $stateParams.id ;
        $scope.nameTitle = $stateParams.name ;
 
-      //console.log($scope.nameTitle);
+     // console.log(curentID);
 
       $scope.timePickerObject = {
          inputEpochTime: ((new Date()).getHours() * 60 * 60),  //Optional
@@ -883,8 +892,19 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
                 Loading.hide();
             });
         }
-        
+
         showroom();
+
+
+
+        $scope.doRefresh = function () {
+            showroom()
+                .finally(function () {
+                    // Stop the ion-refresher from spinning
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
+        };
+        
 
 
         $scope.deleteItem = function (id) {
@@ -915,11 +935,17 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
     })
 
 
-.controller('findgroupCtrl', function ($scope, $localstorage,  $state, Loading , DataGroup , $cordovaToast) {
+.controller('findgroupCtrl', function ($scope, $ionicHistory, $localstorage,  $state, Loading , DataGroup , $cordovaToast) {
    $scope.GroupList = {};
+   
+   $scope.goBack = function() {
+         $ionicHistory.goBack();
+    };
+   
+   
+   
     var arr= $localstorage.getObject('acount');
-    $scope.find = function (name) {
-        
+    $scope.find = function (name) {        
        // console.log(name);
         Loading.show();
         DataGroup.eventFindGroup(name,arr.id).then(function (response) {
@@ -929,15 +955,18 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
             Loading.hide();
         });
     }
+     $scope.pageNumber= -1;
     
-    
-    $scope.addgroup = function (groupID) {
+    $scope.addgroup = function (groupID, array ,index) {
 
         Loading.show();
         DataGroup.eventFindAddGroup(groupID, arr.id).then(function (response) {
             var data = response.data;
             Loading.hide();
-            $scope.buttonStyle = "button-hide";
+
+            array.splice(index, 1);
+           
+             
             $cordovaToast.showShortBottom(data.message, 400).then(function (success) { });
 
         }, function (err) {
@@ -1039,6 +1068,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
         "member":  arr.id,
         "_METHOD" : "POST"
     };
+    
     $scope.addGroupSubmit = function (data) {
 
         var obj = angular.extend({}, object2, data);
@@ -1049,9 +1079,8 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
             Loading.hide();
             var data = response.data ;
             //console.log(data.message);
-
             $cordovaToast.showShortBottom(data.message, 400).then(function (success) {
-               $state.go("friend"); 
+
             });
 
         }, function (err) {
@@ -1066,8 +1095,9 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
     //     $state.go("addfriend"); 
     //  };
      
-      $scope.goBack = function () {
-        $ionicHistory.goBack();
+      $scope.goBack = function () {          
+
+          $state.go("addfriend"); 
       }; 
 
 
