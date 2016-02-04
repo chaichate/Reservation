@@ -90,7 +90,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
             else
             {
                 var json =data.result ;
-                 $cordovaToast.showShortBottom(" กรุณาตรวสอบอีเมล์ของท่าน", 400); 
+                 $cordovaToast.showShortBottom("อีเมล์ของท่านไม่มีในระบบ กรุณาตรวสอบอีเมล์ของท่าน", 400); 
             }
 
           }).error(function(data) {
@@ -128,8 +128,7 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
             }
             else
             {
-                var json =data.result ;
-                 $cordovaToast.showShortBottom("ส่งคำร้องขอรัสผ่านใหม่รีบร้อยแล้ว กรุณาตรวสอบอีเมล์ของท่าน", 400); 
+                 $cordovaToast.showShortBottom( data.msg , 400); 
             }
 
           }).error(function(data) {
@@ -1037,23 +1036,17 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
         Loading.show();
         $scope.addMemberList=[];
         DataGroup.eventSaveNewfriend(data,groupID).then(function (response) {
-           var data = response.data ;
+            var data = response.data ;
+            Loading.hide();
+            $scope.modal.hide();
             $cordovaToast.showShortBottom(data.message, 400).then(function (success) {
-                Loading.hide();
-                $scope.modal.hide();
-            });
-            
-            
+            });                       
         }, function (err) {
             Loading.hide();
-            //$scope.modal.hide();
-        });
-    
+            $scope.modal.hide();
+        });      
+    }      
        
-    }
-         
-    
-    
 })
 
 .controller('addfriendCtrl', function ($scope, $localstorage,  $state, $ionicHistory , DataGroup) {
@@ -1069,19 +1062,22 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
         "_METHOD" : "POST"
     };
     
-    $scope.addGroupSubmit = function (data) {
+    $scope.addGroupSubmit = function (dataForm) {
 
-        var obj = angular.extend({}, object2, data);
-
+        var obj = angular.extend({}, object2, dataForm);
+         $scope.data = null ;
         //console.log(obj);
         Loading.show();
         DataGroup.eventsAdd(obj).then(function (response) {
+            $scope.data = null ;
             Loading.hide();
             var data = response.data ;
+            
             //console.log(data.message);
             $cordovaToast.showShortBottom(data.message, 400).then(function (success) {
-
+                    
             });
+            $state.go("tab.friend"); 
 
         }, function (err) {
             //console.log(err);

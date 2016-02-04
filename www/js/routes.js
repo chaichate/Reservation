@@ -131,6 +131,7 @@ angular.module('app.routes', [])
       
       
     .state('addgroup', {
+        cache: false,
         url: '/addgroup',
         templateUrl: 'templates/addgroup.html',
         controller: 'addgroupCtrl'
@@ -157,6 +158,7 @@ angular.module('app.routes', [])
          
         
     .state('bookdesc', {
+      cache: false,
       url: '/bookdesc/:id',
       templateUrl: 'templates/bookingdesc.html',
       controller: 'bookdescCtrl',
