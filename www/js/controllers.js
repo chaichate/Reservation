@@ -985,12 +985,28 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
     
     
     Loading.show();
-    DataGroup.eventMemberListGroup(groupID).then(function (response) {
-        $scope.MemberList = response.data    
-        Loading.hide();        
-    }, function (err) {
-        Loading.hide();
-    });
+    
+    var showmember =  function() {
+        DataGroup.eventMemberListGroup(groupID).then(function (response) {
+            $scope.MemberList = response.data    
+            Loading.hide();        
+        }, function (err) {
+            Loading.hide();
+        });
+        
+        return ;
+    }
+    
+    showmember();
+    
+     $scope.doRefresh = function() {
+         showmember()
+         .finally(function() {
+           // Stop the ion-refresher from spinning
+           $scope.$broadcast('scroll.refreshComplete');
+         });
+     };
+    
     
     
     $scope.goBack = function() {
@@ -1040,7 +1056,10 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
             Loading.hide();
             $scope.modal.hide();
             $cordovaToast.showShortBottom(data.message, 400).then(function (success) {
-            });                       
+            });  
+            
+             showmember();
+                                 
         }, function (err) {
             Loading.hide();
             $scope.modal.hide();
