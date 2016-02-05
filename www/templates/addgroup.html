@@ -7,7 +7,7 @@
 
     <ion-content overflow-scroll="true" padding="true" class="has-header">
 
-        <form action=""ng-submit="addGroupSubmit(dataRoom)">
+        <form ng-submit="addGroupSubmit(dataRoom)">
             <div class="list">
                <!--<a href="" class="groupImage" ng-click="uploadImage()">
                    <img src="../img/bg.png" alt="">
@@ -15,12 +15,12 @@
                </a>-->
                 <label class="item item-input item-floating-label">
                     <span class="input-label">ชื่อห้อง</span>
-                    <input type="text" placeholder="ชื่อห้อง" ng-model="ddataRoomata.name">
+                    <input type="text" placeholder="ชื่อห้อง" required ng-model="$parent.dataRoom.name">
                 </label>
                 
                  <label class="item item-input item-floating-label">
                     <span class="input-label">รายละเอียด</span>
-                    <input type="text" placeholder="รายละเอียด" ng-model="dataRoom.desc" >
+                    <input type="text" placeholder="รายละเอียด" ng-model="$parent.dataRoom.desc" >
                 </label>
              
             </div>

@@ -131,7 +131,7 @@ angular.module('app.routes', [])
       
       
     .state('addgroup', {
-        cache: false,
+        //cache: false,
         url: '/addgroup',
         templateUrl: 'templates/addgroup.html',
         controller: 'addgroupCtrl'
