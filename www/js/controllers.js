@@ -1084,24 +1084,25 @@ angular.module('app.controllers', ['ui.calendar','ionic-timepicker','ionic-datep
     $scope.addGroupSubmit = function (dataForm) {
 
         var obj = angular.extend({}, object2, dataForm);
-         $scope.data = null ;
+         $scope.dataRoom = null ;
+          console.log($scope.dataRoom );
+         console.log(obj );
         //console.log(obj);
-        Loading.show();
-        DataGroup.eventsAdd(obj).then(function (response) {
-            $scope.data = null ;
-            Loading.hide();
-            var data = response.data ;
+        // Loading.show();
+        // DataGroup.eventsAdd(obj).then(function (response) {
+        //     $scope.data = null ;
+        //     Loading.hide();
+           
+        //     console.log(response);     
             
-            //console.log(data.message);
-            $cordovaToast.showShortBottom(data.message, 400).then(function (success) {
-                    
-            });
-            $state.go("tab.friend"); 
+        //     //console.log(data.message);
+        //     $cordovaToast.showShortBottom("สร้างห้องเรียบร้อยแล้ว", 400).then(function (success) {});
+        //     $state.go("tab.friend"); 
 
-        }, function (err) {
-            //console.log(err);
-            Loading.hide();
-        });
+        // }, function (err) {
+        //     //console.log(err);
+        //     Loading.hide();
+        // });
     }
     
     
